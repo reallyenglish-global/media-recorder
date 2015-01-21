@@ -33,12 +33,12 @@ if(swfobject==undefined){
     },
 
     _checkForFlashBlock: function(){
-      window.setTimeout(function(){
+      window.setTimeout(_.bind(function(){
         if(!this._initialized){
           this._flashBlockCatched = true;
           this._showFlash();
         }
-      }, 500);
+      }, this), 500);
     },
 
     _onInitialized: function(e){
@@ -49,7 +49,7 @@ if(swfobject==undefined){
     },
 
     _flashLoaded: function(e){
-      if(!e.success){
+      if(e.success){
         this.swfObject = e.ref;
         this._checkForFlashBlock();
       }else{
