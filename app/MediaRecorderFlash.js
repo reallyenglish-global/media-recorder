@@ -12,16 +12,17 @@ if(swfobject==undefined){
 
   _.extend(MediaRecorderFlash.prototype, {
     initialize: function(cfg) {
+      //global handler for Flash
       window['recorder'] = this;
+      this._events = [];
+      this._initialized = false;
       this.swfSrc = 'recorder.swf';
+
       this._setupFlashContainer();
       this._loadFlash();
-    },
-
-    clear: function() {
-      this.recLength = 0;
-      this.recBuffersL = [];
-      this.recBuffersR = [];
+      this.bind('initialized', _.bind(this._onInitialized, this));
+      this.bind('microphoneMuted', _.bind(this._showFlash, this));
+      this.bind('record', _.bind(this._hideFlash, this));
     },
 
     _setupFlashContainer: function(){
@@ -31,22 +32,46 @@ if(swfobject==undefined){
       document.body.appendChild(this.flashContainer);
     },
 
-    _flashLoaded: function(e){
-      if(e.success){
-        this.swfObject = e.ref;
-        //Recorder._checkForFlashBlock();
-      }else{
-        Recorder._showFlashRequiredDialog();
+    _checkForFlashBlock: function(){
+      window.setTimeout(function(){
+        if(!this._initialized){
+          this._flashBlockCatched = true;
+          this._showFlash();
+        }
+      }, 500);
+    },
+
+    _onInitialized: function(e){
+      this._initialized = true;
+      if(this._flashBlockCatched){
+        this._hideFlash();
       }
+    },
+
+    _flashLoaded: function(e){
+      if(!e.success){
+        this.swfObject = e.ref;
+        this._checkForFlashBlock();
+      }else{
+        this._showFlashRequiredDialog();
+      }
+    },
+
+    _showFlashRequiredDialog: function(){
+      this.flashContainer.innerHTML = "<p>Adobe Flash Player 10.1 or newer is required to use this feature.</p><p><a href='http://get.adobe.com/flashplayer' target='_top'>Get it on Adobe.com.</a></p>";
+      this.flashContainer.style.color = "white";
+      this.flashContainer.style.backgroundColor = "#777";
+      this.flashContainer.style.textAlign = "center";
+      this._showFlash();
     },
 
     _loadFlash: function(){
       var flashElement = document.createElement("div");
       flashElement.setAttribute("id", "recorderFlashObject");
       this.flashContainer.appendChild(flashElement);
-      var fv = { playerInstance: 'window.flashRecorder' };
+      var fv = { playerInstance: 'window.recorder' };
 
-      swfobject.embedSWF(this.swfSrc, "recorderFlashObject", "231", "141", "10.1.0", fv, undefined, {allowscriptaccess: "always"}, undefined, _.bind(this._flashLoaded,this));
+      swfobject.embedSWF(this.swfSrc, "recorderFlashObject", "231", "141", "10.1.0", undefined, fv, {allowscriptaccess: "always"}, undefined, _.bind(this._flashLoaded,this));
     },
 
     _showFlash: function(){
@@ -61,17 +86,14 @@ if(swfobject==undefined){
 
     record: function(){
       this.flashInterface().recordStart();
-      if (!this.isRecording()) {
-        this._showFlash();
-      }
     },
 
     play: function(){
       this.flashInterface().playback();
     },
 
-    isRecording: function(){
-      return this.flashInterface().isRecording();
+    stop: function(){
+      return this.flashInterface().recordStop();
     },
 
     flashInterface: function flashInterface(){
@@ -84,8 +106,20 @@ if(swfobject==undefined){
       }
     },
 
-    stop: function(){
-      return this.flashInterface().recordStop();
+    bind: function(eventName, fn){
+      if(!this._events[eventName]){ this._events[eventName] = [] }
+      this._events[eventName].push(fn);
+    },
+
+    triggerEvent: function(eventName, arg0, arg1){
+      if (!this._events[eventName]) {
+        return;
+      }
+      for(var i = 0, len = this._events[eventName].length; i < len; i++){
+        if(this._events[eventName][i]){
+          this._events[eventName][i].apply(this, [arg0, arg1]);
+        }
+      }
     }
   });
 
