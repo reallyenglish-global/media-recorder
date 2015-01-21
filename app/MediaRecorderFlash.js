@@ -12,6 +12,7 @@ if(swfobject==undefined){
 
   _.extend(MediaRecorderFlash.prototype, {
     initialize: function(cfg) {
+      window['recorder'] = this;
       this.swfSrc = 'recorder.swf';
       this._setupFlashContainer();
       this._loadFlash();
@@ -25,66 +26,67 @@ if(swfobject==undefined){
 
     _setupFlashContainer: function(){
       this.flashContainer = document.createElement("div");
-    this.flashContainer.setAttribute("id", "recorderFlashContainer");
-    this.flashContainer.setAttribute("style", "position: fixed; left: -9999px; top: -9999px; width: 230px; height: 140px; margin-left: 10px; border-top: 6px solid rgba(128, 128, 128, 0.6); border-bottom: 6px solid rgba(128, 128, 128, 0.6); border-radius: 5px 5px; padding-bottom: 1px; padding-right: 1px;");
-    document.body.appendChild(this.flashContainer);
-  },
+      this.flashContainer.setAttribute("id", "recorderFlashContainer");
+      this.flashContainer.setAttribute("style", "position: fixed; left: -9999px; top: -9999px; width: 230px; height: 140px; margin-left: 10px; border-top: 6px solid rgba(128, 128, 128, 0.6); border-bottom: 6px solid rgba(128, 128, 128, 0.6); border-radius: 5px 5px; padding-bottom: 1px; padding-right: 1px;");
+      document.body.appendChild(this.flashContainer);
+    },
 
-  _flashLoaded: function(e){
-    if(e.success){
-      this.swfObject = e.ref;
-      //Recorder._checkForFlashBlock();
-    }else{
-      Recorder._showFlashRequiredDialog();
+    _flashLoaded: function(e){
+      if(e.success){
+        this.swfObject = e.ref;
+        //Recorder._checkForFlashBlock();
+      }else{
+        Recorder._showFlashRequiredDialog();
+      }
+    },
+
+    _loadFlash: function(){
+      var flashElement = document.createElement("div");
+      flashElement.setAttribute("id", "recorderFlashObject");
+      this.flashContainer.appendChild(flashElement);
+      var fv = { playerInstance: 'window.flashRecorder' };
+
+      swfobject.embedSWF(this.swfSrc, "recorderFlashObject", "231", "141", "10.1.0", fv, undefined, {allowscriptaccess: "always"}, undefined, _.bind(this._flashLoaded,this));
+    },
+
+    _showFlash: function(){
+      this.flashContainer.style.left   = ((window.innerWidth  || document.body.offsetWidth)  / 2) - 115 + "px";
+      this.flashContainer.style.top    = ((window.innerHeight || document.body.offsetHeight) / 2) - 70  + "px";
+    },
+
+    _hideFlash: function(){
+      this.flashContainer.style.left = "-9999px";
+      this.flashContainer.style.top  = "-9999px";
+    },
+
+    record: function(){
+      this.flashInterface().recordStart();
+      if (!this.isRecording()) {
+        this._showFlash();
+      }
+    },
+
+    play: function(){
+      this.flashInterface().playback();
+    },
+
+    isRecording: function(){
+      return this.flashInterface().isRecording();
+    },
+
+    flashInterface: function flashInterface(){
+      if(!this.swfObject){
+        return null;
+      }else if(this.swfObject.recordStart){
+        return this.swfObject;
+      }else if(this.swfObject.children[3].recordStart){
+        return this.swfObject.children[3];
+      }
+    },
+
+    stop: function(){
+      return this.flashInterface().recordStop();
     }
-  },
-
-  _loadFlash: function(){
-    var flashElement = document.createElement("div");
-    flashElement.setAttribute("id", "recorderFlashObject");
-    this.flashContainer.appendChild(flashElement);
-    swfobject.embedSWF(this.swfSrc, "recorderFlashObject", "231", "141", "10.1.0", undefined, undefined, {allowscriptaccess: "always"}, undefined, _.bind(this._flashLoaded,this));
-  },
-
-  _showFlash: function(){
-    this.flashContainer.style.left   = ((window.innerWidth  || document.body.offsetWidth)  / 2) - 115 + "px";
-    this.flashContainer.style.top    = ((window.innerHeight || document.body.offsetHeight) / 2) - 70  + "px";
-  },
-
-  _hideFlash: function(){
-    this.flashContainer.style.left = "-9999px";
-    this.flashContainer.style.top  = "-9999px";
-  },
-
-  record: function(){
-    this.flashInterface().recordStart();
-    if (!this.isRecording()) {
-      this._showFlash();
-    }
-  },
-
-  play: function(){
-    this.flashInterface().playback();
-  },
-
-  isRecording: function(){
-    return this.flashInterface().isRecording();
-  },
-
-  flashInterface: function flashInterface(){
-    if(!this.swfObject){
-      return null;
-    }else if(this.swfObject.recordStart){
-      return this.swfObject;
-    }else if(this.swfObject.children[3].recordStart){
-      return this.swfObject.children[3];
-    }
-  },
-
-  stop: function(){
-    return this.flashInterface().recordStop();
-  }
-
   });
 
   return MediaRecorderFlash;
