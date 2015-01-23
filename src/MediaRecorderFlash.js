@@ -12,7 +12,7 @@ MediaRecorderFlash.prototype.initialize = function(cfg) {
   window['recorder'] = this;
   this._events = [];
   this._initialized = false;
-  this.swfSrc = 'recorder.swf';
+  this.swfSrc = '../recorder.swf';
 
   this._setupFlashContainer();
   this._loadFlash();
@@ -29,27 +29,19 @@ MediaRecorderFlash.prototype._setupFlashContainer = function() {
 };
 
 MediaRecorderFlash.prototype._checkForFlashBlock = function() {
-  window.setTimeout(_.bind(function(){
-    if(!this._initialized){
-      this._flashBlockCatched = true;
-      this._showFlash();
+  var self = this;
+  window.setTimeout(function(){
+    if(!self._initialized){
+      self._flashBlockCatched = true;
+      self._showFlash();
     }
-  }, this), 500);
+  }, 500);
 };
 
 MediaRecorderFlash.prototype._onInitialized = function(e) {
   this._initialized = true;
   if(this._flashBlockCatched){
     this._hideFlash();
-  }
-};
-
-MediaRecorderFlash.prototype._flashLoaded = function(e) {
-  if(e.success){
-    this.swfObject = e.ref;
-    this._checkForFlashBlock();
-  }else{
-    this._showFlashRequiredDialog();
   }
 };
 
@@ -66,8 +58,15 @@ MediaRecorderFlash.prototype._loadFlash = function() {
   flashElement.setAttribute("id", "recorderFlashObject");
   this.flashContainer.appendChild(flashElement);
   var fv = { playerInstance: 'window.recorder' };
-
-  swfobject.embedSWF(this.swfSrc, "recorderFlashObject", "231", "141", "10.1.0", undefined, fv, {allowscriptaccess: "always"}, undefined, _.bind(this._flashLoaded,this));
+  var self = this;
+  swfobject.embedSWF(this.swfSrc, "recorderFlashObject", "231", "141", "10.1.0", undefined, fv, {allowscriptaccess: "always"}, undefined, function(e) {
+  if(e.success){
+    self.swfObject = e.ref;
+    self._checkForFlashBlock.apply(self);
+  }else{
+    self._showFlashRequiredDialog();
+  }
+  });
 };
 
 MediaRecorderFlash.prototype._showFlash = function() {
