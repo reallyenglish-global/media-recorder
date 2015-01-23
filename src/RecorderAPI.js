@@ -20,7 +20,7 @@ RecorderAPI.prototype.onDataAvailabe = function(e) {
 RecorderAPI.prototype.startRecording = function(stream) {
   this.data = [];
   this.mediaRecorder = new MediaRecorder(stream);
-  this.mediaRecorder.ondataavailable = this.onDataAvailabe;
+  this.mediaRecorder.ondataavailable = bind(this.onDataAvailabe, this);
   this.mediaRecorder.onerror = function(e){
     console.log('Error: ', e);
   };
@@ -29,8 +29,7 @@ RecorderAPI.prototype.startRecording = function(stream) {
 };
 
 RecorderAPI.prototype.record = function() {
-  var self = this;
-  navigator.getUserMedia({audio: true}, function(stream) {self.startRecording.call(self, stream);}, this.onError);
+  navigator.getUserMedia({audio: true}, bind(this.startRecording, this), this.onError);
 };
 
 RecorderAPI.prototype.play = function() {

@@ -2,6 +2,11 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
 window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
 window.URL = window.URL || window.webkitURL;
 
+function bind(func, context) {
+  return function() {
+    func.apply(context, arguments);
+  };
+}
 // Feature detection.
 var getUserMediaCheck = typeof(navigator.getUserMedia) === 'function';
 var mediaRecorderCheck = typeof(window.MediaRecorder) === 'function';

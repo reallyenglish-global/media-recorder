@@ -29,13 +29,12 @@ RecorderFlash.prototype._setupFlashContainer = function() {
 };
 
 RecorderFlash.prototype._checkForFlashBlock = function() {
-  var self = this;
-  window.setTimeout(function(){
-    if(!self._initialized){
-      self._flashBlockCatched = true;
-      self._showFlash();
+  window.setTimeout(bind(function(){
+    if(!this._initialized){
+      this._flashBlockCatched = true;
+      this._showFlash();
     }
-  }, 500);
+  }, this), 500);
 };
 
 RecorderFlash.prototype._onInitialized = function(e) {
@@ -58,15 +57,16 @@ RecorderFlash.prototype._loadFlash = function() {
   flashElement.setAttribute("id", "recorderFlashObject");
   this.flashContainer.appendChild(flashElement);
   var fv = { playerInstance: 'window.recorder' };
-  var self = this;
-  swfobject.embedSWF(this.swfSrc, "recorderFlashObject", "231", "141", "10.1.0", undefined, fv, {allowscriptaccess: "always"}, undefined, function(e) {
+  swfobject.embedSWF(this.swfSrc, "recorderFlashObject", "231", "141", "10.1.0", undefined, fv, {allowscriptaccess: "always"}, undefined, bind(this._flashLoaded, this));
+};
+
+RecorderFlash.prototype._flashLoaded = function(e) {
   if(e.success){
-    self.swfObject = e.ref;
-    self._checkForFlashBlock.apply(self);
+    this.swfObject = e.ref;
+    this._checkForFlashBlock();
   }else{
-    self._showFlashRequiredDialog();
+    this._showFlashRequiredDialog();
   }
-  });
 };
 
 RecorderFlash.prototype._showFlash = function() {
