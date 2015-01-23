@@ -1,8 +1,8 @@
-var MediaRecorderHtml5 = function(options) {
+var RecorderHtml5 = function(options) {
   this.initialize.call(this, options);
 };
 
-MediaRecorderHtml5.prototype.initialize = function(cfg) {
+RecorderHtml5.prototype.initialize = function(cfg) {
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
   if (!AudioContext) {
@@ -24,7 +24,7 @@ MediaRecorderHtml5.prototype.initialize = function(cfg) {
   });
 };
 
-MediaRecorderHtml5.prototype.prepare = function prepare(stream) {
+RecorderHtml5.prototype.prepare = function prepare(stream) {
   this.input = this.audio_context.createMediaStreamSource(stream);
   this.context = this.input.context;
   this.node = (this.context.createScriptProcessor ||
@@ -35,7 +35,7 @@ MediaRecorderHtml5.prototype.prepare = function prepare(stream) {
   this.node.connect(this.context.destination);
 };
 
-MediaRecorderHtml5.prototype.onAudioProcess = function onAudioProcess(e) {
+RecorderHtml5.prototype.onAudioProcess = function onAudioProcess(e) {
   if (!this.recording) return;
   var buffer = [new Float32Array(e.inputBuffer.getChannelData(0)), new Float32Array(e.inputBuffer.getChannelData(1))];
   this.recBuffersL.push(buffer[0]);
@@ -43,25 +43,25 @@ MediaRecorderHtml5.prototype.onAudioProcess = function onAudioProcess(e) {
   this.recLength += buffer[0].length;
 };
 
-MediaRecorderHtml5.prototype.record = function record() {
+RecorderHtml5.prototype.record = function record() {
   this.clear();
   this.recording = true;
 };
 
-MediaRecorderHtml5.prototype.clear = function clear() {
+RecorderHtml5.prototype.clear = function clear() {
   this.recLength = 0;
   this.recBuffersL = [];
   this.recBuffersR = [];
 };
 
-MediaRecorderHtml5.prototype.getBuffer = function getBuffer() {
+RecorderHtml5.prototype.getBuffer = function getBuffer() {
   var buffers = [];
   buffers.push( this.mergeBuffers(this.recBuffersL, this.recLength) );
   buffers.push( this.mergeBuffers(this.recBuffersR, this.recLength) );
   return buffers;
 };
 
-MediaRecorderHtml5.prototype.mergeBuffers = function mergeBuffers(recBuffers, recLength){
+RecorderHtml5.prototype.mergeBuffers = function mergeBuffers(recBuffers, recLength){
   var result = new Float32Array(recLength);
   var offset = 0;
   for (var i = 0; i < recBuffers.length; i++){
@@ -71,7 +71,7 @@ MediaRecorderHtml5.prototype.mergeBuffers = function mergeBuffers(recBuffers, re
   return result;
 };
 
-MediaRecorderHtml5.prototype.play = function play() {
+RecorderHtml5.prototype.play = function play() {
   var buffers = this.getBuffer();
   var newBuffer = this.audio_context.createBuffer(2, buffers[0].length, this.audio_context.sampleRate);
   this.outputSource = this.audio_context.createBufferSource();
@@ -82,6 +82,6 @@ MediaRecorderHtml5.prototype.play = function play() {
   this.outputSource.start(0);
 };
 
-MediaRecorderHtml5.prototype.stop = function stop() {
+RecorderHtml5.prototype.stop = function stop() {
   this.recording = false;
 };

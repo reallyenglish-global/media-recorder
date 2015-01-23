@@ -14,15 +14,15 @@ var Recorder = function(options) {
 Recorder.getInstance = function(options) {
   // Use the MediaRecorder API. Currently only works in firefox.
   if (getUserMediaCheck && webAudioCheck && mediaRecorderCheck) {
-    Recorder = MediaRecorderAPI;
+    recorderClass = RecorderAPI;
   // Use HTML5 features (Web Audio API).
   } else if (getUserMediaCheck && webAudioCheck && !mediaRecorderCheck) {
-    Recorder = MediaRecorder;
+    recorderClass = Recorder;
     // Use Flash.
   } else {
-    Recorder = MediaRecorderFlash;
+    recorderClass = RecorderFlash;
   }
-  return new Recorder(options);
+  return new recorderClass(options);
 };
 
 Recorder.prototype.initialize = function(cfg) {
