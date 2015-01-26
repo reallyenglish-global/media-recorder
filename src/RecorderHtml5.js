@@ -2,6 +2,8 @@ var RecorderHtml5 = function(options) {
   this.initialize.call(this, options);
 };
 
+RecorderHtml5.prototype.constructor = Recorder;
+
 RecorderHtml5.prototype.initialize = function(cfg) {
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
