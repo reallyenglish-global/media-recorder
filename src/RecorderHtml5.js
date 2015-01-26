@@ -21,7 +21,7 @@ RecorderHtml5.prototype.initialize = function(cfg) {
   var config = cfg || {};
   this.bufferLen = config.bufferLen || 4096;
   this.sampleRate = this.audio_context.sampleRate;
-  navigator.getUserMedia({audio: true}, _.bind(this.prepare, this), function(e) {
+  navigator.getUserMedia({audio: true}, bind(this.prepare, this), function(e) {
     console.log('No live audio input: ' + e);
   });
 };
@@ -32,7 +32,7 @@ RecorderHtml5.prototype.prepare = function prepare(stream) {
   this.node = (this.context.createScriptProcessor ||
              this.context.createJavaScriptNode).call(this.context,
                                                      this.bufferLen, 2, 2);
-  this.node.onaudioprocess = _.bind(this.onAudioProcess, this);
+  this.node.onaudioprocess = bind(this.onAudioProcess, this);
   this.input.connect(this.node);
   this.node.connect(this.context.destination);
 };
