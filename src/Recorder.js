@@ -22,7 +22,7 @@ Recorder.getInstance = function(options) {
     recorderClass = RecorderAPI;
   // Use HTML5 features (Web Audio API).
   } else if (getUserMediaCheck && webAudioCheck && !mediaRecorderCheck) {
-    recorderClass = Recorder;
+    recorderClass = RecorderHtml5;
     // Use Flash.
   } else {
     recorderClass = RecorderFlash;
