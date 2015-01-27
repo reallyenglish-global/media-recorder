@@ -11,7 +11,7 @@ RecorderFlash.prototype.constructor = Recorder;
 
 RecorderFlash.prototype.initialize = function(cfg) {
   //global handler for Flash
-  window['recorder'] = this;
+  window['flashRecorder'] = this;
   this._events = [];
   this._initialized = false;
   this.swfSrc = 'recorder.swf';
@@ -61,7 +61,7 @@ RecorderFlash.prototype._loadFlash = function() {
   var flashElement = document.createElement("div");
   flashElement.setAttribute("id", "recorderFlashObject");
   this.flashContainer.appendChild(flashElement);
-  var fv = { playerInstance: 'window.recorder' };
+  var fv = { playerInstance: 'window.flashRecorder' };
   swfobject.embedSWF(this.swfSrc, "recorderFlashObject", "231", "141", "10.1.0", undefined, fv, {allowscriptaccess: "always"}, undefined, bind(this._flashLoaded, this));
 };
 
