@@ -45,3 +45,6 @@ Recorder.prototype.play = function play() {
 Recorder.prototype.stop = function stop() {
   this.recording = false;
 };
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = Recorder;
+}
