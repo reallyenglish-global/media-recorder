@@ -7,6 +7,7 @@ function bind(func, context) {
     func.apply(context, arguments);
   };
 }
+
 // Feature detection.
 var getUserMediaCheck = typeof(navigator.getUserMedia) === 'function';
 var mediaRecorderCheck = typeof(window.MediaRecorder) === 'function';
@@ -34,17 +35,21 @@ Recorder.prototype.initialize = function(cfg) {
 };
 
 Recorder.prototype.record = function record() {
+  console.log('Recorder.record');
 };
 
 Recorder.prototype.clear = function clear() {
+  console.log('Recorder.clear');
 };
 
 Recorder.prototype.play = function play() {
+  console.log('Recorder.play');
 };
 
 Recorder.prototype.stop = function stop() {
-  this.recording = false;
+  console.log('Recorder.stop');
 };
+
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = Recorder;
 }
