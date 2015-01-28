@@ -17,18 +17,23 @@ var Recorder = function(options) {
   this.initialize.call(this, options);
 };
 
+Recorder.instance = null;
+
 Recorder.getInstance = function(options) {
-  // Use the MediaRecorder API. Currently only works in firefox.
-  if (getUserMediaCheck && webAudioCheck && mediaRecorderCheck) {
-    recorderClass = RecorderAPI;
-  // Use HTML5 features (Web Audio API).
-  } else if (getUserMediaCheck && webAudioCheck && !mediaRecorderCheck) {
-    recorderClass = RecorderHtml5;
-    // Use Flash.
-  } else {
-    recorderClass = RecorderFlash;
+  if (!Recorder.instance) {
+    // Use the MediaRecorder API. Currently only works in firefox.
+    if (getUserMediaCheck && webAudioCheck && mediaRecorderCheck) {
+      recorderClass = RecorderAPI;
+      // Use HTML5 features (Web Audio API).
+    } else if (getUserMediaCheck && webAudioCheck && !mediaRecorderCheck) {
+      recorderClass = RecorderHtml5;
+      // Use Flash.
+    } else {
+      recorderClass = RecorderFlash;
+    }
+    Recorder.instance = new recorderClass(options);
   }
-  return new recorderClass(options);
+  return Recorder.instance;
 };
 
 Recorder.prototype.initialize = function(cfg) {
