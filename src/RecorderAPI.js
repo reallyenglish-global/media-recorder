@@ -44,3 +44,7 @@ RecorderAPI.prototype.play = function() {
 RecorderAPI.prototype.stop = function() {
   this.mediaRecorder.stop();
 };
+
+RecorderAPI.prototype.getData = function() {
+  return new Blob(this.data, { type: "text/plain" });
+};

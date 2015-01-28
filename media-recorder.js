@@ -55,6 +55,11 @@ Recorder.prototype.stop = function stop() {
   console.log('Recorder.stop');
 };
 
+Recorder.prototype.getData = function getData() {
+  console.log('Recorder.getData');
+};
+
+
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = Recorder;
 }
@@ -103,6 +108,10 @@ RecorderAPI.prototype.play = function() {
 
 RecorderAPI.prototype.stop = function() {
   this.mediaRecorder.stop();
+};
+
+RecorderAPI.prototype.getData = function() {
+  return new Blob(this.data, { type: "text/plain" });
 };
 if(swfobject==undefined){
   /*	SWFObject v2.2 <http://code.google.com/p/swfobject/> is released under the MIT License <http://www.opensource.org/licenses/mit-license.php */

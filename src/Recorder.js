@@ -55,6 +55,11 @@ Recorder.prototype.stop = function stop() {
   console.log('Recorder.stop');
 };
 
+Recorder.prototype.getData = function getData() {
+  console.log('Recorder.getData');
+};
+
+
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = Recorder;
 }
