@@ -10,11 +10,13 @@
   <h1>Media record test</h1>
   <button onclick="record(this);">record</button>
   <button onclick="playback(this);" disabled>play</button>
+  <audio controls autoplay></audio>
   <h2>Log</h2>
   <pre id="log"></pre>
 
   <script src="../media-recorder.js"></script>
   <script>
+  window.URL = window.URL || window.webkitURL;
   function __log(e, data) {
     log.innerHTML += "\n" + e + " " + (data || '');
   }
@@ -28,6 +30,8 @@
 
   function playback(button) {
     recorder && recorder.stop();
+    var audio = document.querySelector('audio');
+    audio.src = window.URL.createObjectURL(recorder.getData());
     button.disabled = true;
     button.previousElementSibling.disabled = false;
     __log('Stopped recording.');
