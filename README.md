@@ -11,3 +11,7 @@ https://github.com/reallyenglish/flash-recorder
 
 About Blog
 http://www.javascripture.com/Blob
+
+atob test on browser
+openssl base64 -in life.wav -out life.txt
+openssl base64 -d -in life.txt -out life.wav

@@ -124,6 +124,10 @@ RecorderFlash.prototype.getData = function() {
   return b64toBlob(this.flashInterface().wavData());
 };
 
+RecorderFlash.prototype.getBase64Data = function() {
+  return this.flashInterface().wavData();
+};
+
 RecorderFlash.prototype.flashInterface = function() {
   if(!this.swfObject){
     return null;
