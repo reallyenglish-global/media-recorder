@@ -15,3 +15,15 @@ http://www.javascripture.com/Blob
 atob test on browser
 openssl base64 -in life.wav -out life.txt
 openssl base64 -d -in life.txt -out life.wav
+
+Base64 Encoding
+on IE11 and Safari the line break need to be removed.
+
+IE11 doesn't support playing wav file.
+on console.
+a = new Audio();
+a.src = 'http://www.wav-sounds.com/funny/life.wav';
+>>MEDIA12899: AUDIO/VIDEO: Unknown MIME type.
+
+a.src = 'http://re.reallyenglish.com/template/common/system_check/test.mp3';
+a.play();

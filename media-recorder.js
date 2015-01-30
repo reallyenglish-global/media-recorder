@@ -122,7 +122,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
     contentType = contentType || '';
     sliceSize = sliceSize || 512;
 
-    var byteCharacters = atob(b64Data);
+    var byteCharacters = atob(b64Data.replace(/(\r\n|\n|\r)/gm,""));
     var byteArrays = [];
 
     for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
@@ -236,7 +236,11 @@ RecorderFlash.prototype.stop = function() {
 };
 
 RecorderFlash.prototype.getData = function() {
-  return b64toBlob(this.flashInterface().wavData());
+  return b64toBlob(this.flashInterface().wavData(), 'audio/wav');
+};
+
+RecorderFlash.prototype.getBase64Data = function() {
+  return this.flashInterface().wavData();
 };
 
 RecorderFlash.prototype.flashInterface = function() {

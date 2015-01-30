@@ -46,6 +46,7 @@
     __log('Recorder initialised.');
     loadAudioFile();
   };
+  var blob = null;
   function loadAudioFile() {
     var xmlhttp;
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -56,10 +57,10 @@
     xmlhttp.onreadystatechange=function() {
       if (xmlhttp.readyState==4 && xmlhttp.status==200) {
         var audio = document.querySelector('audio');
-        var text = xmlhttp.responseText;
-        console.log(text);
-        var blob = b64toBlob(text);
+        blob = b64toBlob(xmlhttp.responseText, 'audio/x-wav');
         audio.src = window.URL.createObjectURL(blob);
+        var download = document.getElementById('save');
+        download.href = audio.src;
       }
     }
     xmlhttp.open("GET","base64.txt",true);
