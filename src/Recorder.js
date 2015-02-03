@@ -10,7 +10,6 @@ function bind(func, context) {
 
 // Feature detection.
 var getUserMediaCheck = typeof(navigator.getUserMedia) === 'function';
-var mediaRecorderCheck = typeof(window.MediaRecorder) === 'function';
 var webAudioCheck = typeof(window.AudioContext) === 'function';
 
 var Recorder = function(options) {
@@ -21,14 +20,11 @@ Recorder.instance = null;
 
 Recorder.getInstance = function(options) {
   if (!Recorder.instance) {
-    // Use the MediaRecorder API. Currently only works in firefox.
-    if (getUserMediaCheck && webAudioCheck && mediaRecorderCheck) {
-      recorderClass = RecorderAPI;
-      // Use HTML5 features (Web Audio API).
-    } else if (getUserMediaCheck && webAudioCheck && !mediaRecorderCheck) {
+    // Use HTML5 features (Web Audio API).
+    if (getUserMediaCheck && webAudioCheck) {
       recorderClass = RecorderHtml5;
-      // Use Flash.
     } else {
+    // Use Flash.
       recorderClass = RecorderFlash;
     }
     Recorder.instance = new recorderClass(options);
