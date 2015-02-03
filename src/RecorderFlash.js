@@ -31,6 +31,7 @@ var RecorderFlash = function(options) {
   this.initialize.call(this, options);
 };
 
+RecorderFlash.prototype = new Recorder();
 RecorderFlash.prototype.constructor = Recorder;
 
 RecorderFlash.prototype.initialize = function(cfg) {
@@ -46,6 +47,7 @@ RecorderFlash.prototype.initialize = function(cfg) {
   this._setupFlashContainer();
   this._loadFlash();
   this.bind('initialized', this._onInitialized);
+  this.bind('ended', this._onEnded);
   this.bind('microphoneMuted', this._showFlash);
   this.bind('record', this._hideFlash);
 };

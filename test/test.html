@@ -38,6 +38,9 @@
     button.disabled = true;
     button.previousElementSibling.disabled = false;
     __log('Stopped recording.');
+    recorder.onended = function() {
+      __log('play ended.');
+    };
     recorder.play();
   }
 

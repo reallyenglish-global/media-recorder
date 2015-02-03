@@ -67,6 +67,7 @@ var RecorderAPI = function() {
 this.initialize.call(this);
 };
 
+RecorderAPI.prototype = new Recorder();
 RecorderAPI.prototype.constructor = Recorder;
 
 RecorderAPI.prototype.initialize = function(cfg) {
@@ -146,6 +147,7 @@ var RecorderFlash = function(options) {
   this.initialize.call(this, options);
 };
 
+RecorderFlash.prototype = new Recorder();
 RecorderFlash.prototype.constructor = Recorder;
 
 RecorderFlash.prototype.initialize = function(cfg) {
@@ -161,6 +163,7 @@ RecorderFlash.prototype.initialize = function(cfg) {
   this._setupFlashContainer();
   this._loadFlash();
   this.bind('initialized', this._onInitialized);
+  this.bind('ended', this._onEnded);
   this.bind('microphoneMuted', this._showFlash);
   this.bind('record', this._hideFlash);
 };
@@ -334,6 +337,7 @@ var RecorderHtml5 = function(options) {
   this.initialize.call(this, options);
 };
 
+RecorderHtml5.prototype = new Recorder();
 RecorderHtml5.prototype.constructor = Recorder;
 
 RecorderHtml5.prototype.initialize = function(cfg) {
@@ -414,6 +418,7 @@ RecorderHtml5.prototype.play = function play() {
   newBuffer.getChannelData(1).set(buffers[1]);
   this.outputSource.buffer = newBuffer;
   this.outputSource.connect(this.audio_context.destination);
+  this.outputSource.onended = bind(this._onEnded, this);
   this.outputSource.start(0);
 };
 

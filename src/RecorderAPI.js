@@ -2,6 +2,7 @@ var RecorderAPI = function() {
 this.initialize.call(this);
 };
 
+RecorderAPI.prototype = new Recorder();
 RecorderAPI.prototype.constructor = Recorder;
 
 RecorderAPI.prototype.initialize = function(cfg) {

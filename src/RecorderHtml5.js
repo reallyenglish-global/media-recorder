@@ -64,6 +64,7 @@ var RecorderHtml5 = function(options) {
   this.initialize.call(this, options);
 };
 
+RecorderHtml5.prototype = new Recorder();
 RecorderHtml5.prototype.constructor = Recorder;
 
 RecorderHtml5.prototype.initialize = function(cfg) {
@@ -144,6 +145,7 @@ RecorderHtml5.prototype.play = function play() {
   newBuffer.getChannelData(1).set(buffers[1]);
   this.outputSource.buffer = newBuffer;
   this.outputSource.connect(this.audio_context.destination);
+  this.outputSource.onended = bind(this._onEnded, this);
   this.outputSource.start(0);
 };
 
