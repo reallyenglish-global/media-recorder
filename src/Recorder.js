@@ -20,12 +20,12 @@ Recorder.instance = null;
 
 Recorder.getInstance = function(options) {
   if (!Recorder.instance) {
+    // Use Flash.
+    var recorderClass = RecorderFlash;
+
     // Use HTML5 features (Web Audio API).
     if (getUserMediaCheck && webAudioCheck) {
       recorderClass = RecorderHtml5;
-    } else {
-    // Use Flash.
-      recorderClass = RecorderFlash;
     }
     Recorder.instance = new recorderClass(options);
   }
