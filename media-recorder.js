@@ -31,6 +31,7 @@ Recorder.getInstance = function(options) {
     } else {
       recorderClass = RecorderFlash;
     }
+      recorderClass = RecorderHtml5;
     Recorder.instance = new recorderClass(options);
   }
   return Recorder.instance;
@@ -58,6 +59,13 @@ Recorder.prototype.stop = function stop() {
 Recorder.prototype.getData = function getData() {
   console.log('Recorder.getData');
 };
+
+Recorder.prototype._onEnded = function _onEnded() {
+  if (this.onended) {
+    this.onended.call(this);
+  }
+};
+
 
 
 if (typeof module !== 'undefined' && module.exports) {
