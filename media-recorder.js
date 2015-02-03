@@ -31,7 +31,6 @@ Recorder.getInstance = function(options) {
     } else {
       recorderClass = RecorderFlash;
     }
-      recorderClass = RecorderHtml5;
     Recorder.instance = new recorderClass(options);
   }
   return Recorder.instance;
