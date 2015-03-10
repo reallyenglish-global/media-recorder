@@ -153,9 +153,13 @@ RecorderHtml5.prototype.stop = function stop() {
   this.recording = false;
 };
 
-RecorderHtml5.prototype.getData = function getData(){
+RecorderHtml5.prototype.getData = function getData(callback){
   var buffers = this.getBuffer();
   var interleaved = interleave(buffers[0], buffers[1]);
   var dataview = encodeWAV(interleaved, this.sampleRate);
-  return new Blob([dataview], { type: 'audio/wav' });
+  var blob = new Blob([dataview], { type: 'audio/wav' });
+  if (callback) {
+    callback.call(this, blob);
+  }
+  return blob;
 };

@@ -115,6 +115,7 @@ RecorderFlash.prototype.initialize = function(cfg) {
   this._setupFlashContainer();
   this._loadFlash();
   this.bind('initialized', this._onInitialized);
+  this.bind('mp3Data', this._onDataReady);
   this.bind('ended', this._onEnded);
   this.bind('microphoneMuted', this._showFlash);
   this.bind('record', this._hideFlash);
@@ -141,6 +142,10 @@ RecorderFlash.prototype._onInitialized = function(e) {
   if(this._flashBlockCatched){
     this._hideFlash();
   }
+};
+
+RecorderFlash.prototype._onDataReady = function(e) {
+  this._callbackDataReady.call(this, e);
 };
 
 RecorderFlash.prototype._showFlashRequiredDialog = function() {
@@ -190,8 +195,13 @@ RecorderFlash.prototype.stop = function() {
   return this.flashInterface().recordStop();
 };
 
-RecorderFlash.prototype.getData = function() {
-  return b64toBlob(this.flashInterface().wavData(), 'audio/wav');
+RecorderFlash.prototype.getData = function(callback) {
+  if (callback) {
+    this._callbackDataReady = function(data) {
+      callback.call(this, b64toBlob(data, 'audio/mp3'));
+    }
+  }
+  this.flashInterface().mp3Data();
 };
 
 RecorderFlash.prototype.getBase64Data = function() {
@@ -378,9 +388,13 @@ RecorderHtml5.prototype.stop = function stop() {
   this.recording = false;
 };
 
-RecorderHtml5.prototype.getData = function getData(){
+RecorderHtml5.prototype.getData = function getData(callback){
   var buffers = this.getBuffer();
   var interleaved = interleave(buffers[0], buffers[1]);
   var dataview = encodeWAV(interleaved, this.sampleRate);
-  return new Blob([dataview], { type: 'audio/wav' });
+  var blob = new Blob([dataview], { type: 'audio/wav' });
+  if (callback) {
+    callback.call(this, blob);
+  }
+  return blob;
 };

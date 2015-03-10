@@ -29,12 +29,19 @@
     __log('Recording...');
   }
 
-  function playback(button) {
-    recorder && recorder.stop();
+  function dataReady(blob) {
     var audio = document.querySelector('audio');
-    audio.src = window.URL.createObjectURL(recorder.getData());
+    audio.src = window.URL.createObjectURL(blob);
     var download = document.getElementById('save');
     download.href = audio.src;
+    if (blob.type == 'audio/mp3') {
+      download.setAttribute('download', 'myRecording00.mp3');
+    }
+  }
+
+  function playback(button) {
+    recorder && recorder.stop();
+    recorder.getData(dataReady);
     button.disabled = true;
     button.previousElementSibling.disabled = false;
     __log('Stopped recording.');
