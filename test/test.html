@@ -38,8 +38,10 @@
     if (blob.type == 'audio/mp3') {
       download.setAttribute('download', 'myRecording00.mp3');
     }
-    var time = new Date();
-    __log('from stop to play: ' + (time - _start)/1000) + 's';
+    var gap = (new Date() - _start) / 1000;
+    audio.ondurationchange = function() {
+      __log('performance: duration(' + audio.duration + ') from stop to play: ' + gap + 's');
+    }
   }
 
   function playback(button) {
