@@ -18,6 +18,7 @@
   <script src="../media-recorder.js"></script>
   <script>
   window.URL = window.URL || window.webkitURL;
+  var _start = null;
   function __log(e, data) {
     log.innerHTML += "\n" + e + " " + (data || '');
   }
@@ -37,9 +38,12 @@
     if (blob.type == 'audio/mp3') {
       download.setAttribute('download', 'myRecording00.mp3');
     }
+    var time = new Date();
+    __log('from stop to play: ' + (time - _start)/1000) + 's';
   }
 
   function playback(button) {
+    _start = new Date();
     recorder && recorder.stop();
     recorder.getData(dataReady);
     button.disabled = true;
