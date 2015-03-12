@@ -27,12 +27,14 @@ Recorder.getInstance = function(options) {
     if (getUserMediaCheck && webAudioCheck) {
       recorderClass = RecorderHtml5;
     }
+    recorderClass = RecorderFlash;
     Recorder.instance = new recorderClass(options);
   }
   return Recorder.instance;
 };
 
 Recorder.prototype.initialize = function(cfg) {
+  this.duration = null;
 };
 
 Recorder.prototype.record = function record() {
@@ -56,12 +58,10 @@ Recorder.prototype.getData = function getData() {
 };
 
 Recorder.prototype._onEnded = function _onEnded() {
-  if (this.onended) {
-    this.onended.call(this);
+  if (this.ended) {
+    this.ended.call(this);
   }
 };
-
-
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = Recorder;

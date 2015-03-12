@@ -112,6 +112,7 @@ RecorderHtml5.prototype.onAudioProcess = function onAudioProcess(e) {
 RecorderHtml5.prototype.record = function record() {
   this.clear();
   this.recording = true;
+  this._start_recording = this.context.currentTime;
 };
 
 RecorderHtml5.prototype.clear = function clear() {
@@ -151,6 +152,7 @@ RecorderHtml5.prototype.play = function play() {
 
 RecorderHtml5.prototype.stop = function stop() {
   this.recording = false;
+  this.duration = this.context.currentTime - this._start_recording;
 };
 
 RecorderHtml5.prototype.getData = function getData(callback){

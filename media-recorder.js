@@ -27,12 +27,14 @@ Recorder.getInstance = function(options) {
     if (getUserMediaCheck && webAudioCheck) {
       recorderClass = RecorderHtml5;
     }
+    recorderClass = RecorderFlash;
     Recorder.instance = new recorderClass(options);
   }
   return Recorder.instance;
 };
 
 Recorder.prototype.initialize = function(cfg) {
+  this.duration = null;
 };
 
 Recorder.prototype.record = function record() {
@@ -56,12 +58,10 @@ Recorder.prototype.getData = function getData() {
 };
 
 Recorder.prototype._onEnded = function _onEnded() {
-  if (this.onended) {
-    this.onended.call(this);
+  if (this.ended) {
+    this.ended.call(this);
   }
 };
-
-
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = Recorder;
@@ -192,7 +192,8 @@ RecorderFlash.prototype.play = function() {
 };
 
 RecorderFlash.prototype.stop = function() {
-  return this.flashInterface().recordStop();
+  this.duration = this.flashInterface().recordStop();
+  return this.duration;
 };
 
 RecorderFlash.prototype.getData = function(callback) {
@@ -347,6 +348,7 @@ RecorderHtml5.prototype.onAudioProcess = function onAudioProcess(e) {
 RecorderHtml5.prototype.record = function record() {
   this.clear();
   this.recording = true;
+  this._start_recording = this.context.currentTime;
 };
 
 RecorderHtml5.prototype.clear = function clear() {
@@ -386,6 +388,7 @@ RecorderHtml5.prototype.play = function play() {
 
 RecorderHtml5.prototype.stop = function stop() {
   this.recording = false;
+  this.duration = this.context.currentTime - this._start_recording;
 };
 
 RecorderHtml5.prototype.getData = function getData(callback){

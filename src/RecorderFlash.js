@@ -124,7 +124,8 @@ RecorderFlash.prototype.play = function() {
 };
 
 RecorderFlash.prototype.stop = function() {
-  return this.flashInterface().recordStop();
+  this.duration = this.flashInterface().recordStop();
+  return this.duration;
 };
 
 RecorderFlash.prototype.getData = function(callback) {

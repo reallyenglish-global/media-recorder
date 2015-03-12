@@ -50,8 +50,8 @@
     recorder.getData(dataReady);
     button.disabled = true;
     button.previousElementSibling.disabled = false;
-    __log('Stopped recording.');
-    recorder.onended = function() {
+    __log('Stopped recording. duration:' +  recorder.duration);
+    recorder.ended = function() {
       __log('play ended.');
     };
     recorder.play();
