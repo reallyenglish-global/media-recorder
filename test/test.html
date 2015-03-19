@@ -11,7 +11,6 @@
   <button onclick="record(this);">record</button>
   <button onclick="playback(this);" disabled>play</button>
   <button onclick="pause(this);" disabled>pause</button>
-  <audio controls></audio>
   <a id="save" download="myRecording00.wav">Download</a>
   <h2>Log</h2>
   <pre id="log"></pre>
@@ -32,20 +31,6 @@
     __log('Recording...');
   }
 
-  function dataReady(blob) {
-    var audio = document.querySelector('audio');
-    audio.src = window.URL.createObjectURL(blob);
-    var download = document.getElementById('save');
-    download.href = audio.src;
-    if (blob.type == 'audio/mp3') {
-      download.setAttribute('download', 'myRecording00.mp3');
-    }
-    var gap = (new Date() - _start) / 1000;
-    audio.ondurationchange = function() {
-      __log('performance: duration(' + audio.duration + ') from stop to play: ' + gap + 's');
-    }
-  }
-
   function playback(button) {
     _start = new Date();
     if (_paused) {
@@ -55,7 +40,6 @@
     }
     _paused = false;
     recorder && recorder.stop();
-    recorder.getData(dataReady);
     button.disabled = true;
     button.previousElementSibling.disabled = false;
     button.nextElementSibling.disabled = false;
@@ -77,28 +61,7 @@
   window.onload = function init() {
     recorder = Recorder.getInstance({swfSrc: '../recorder.swf'});
     __log('Recorder initialised.');
-    loadAudioFile();
   };
-  var blob = null;
-  function loadAudioFile() {
-    var xmlhttp;
-    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-      xmlhttp=new XMLHttpRequest();
-    } else {// code for IE6, IE5
-      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlhttp.onreadystatechange=function() {
-      if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-        var audio = document.querySelector('audio');
-        blob = b64toBlob(xmlhttp.responseText, 'audio/x-wav');
-        audio.src = window.URL.createObjectURL(blob);
-        var download = document.getElementById('save');
-        download.href = audio.src;
-      }
-    }
-    xmlhttp.open("GET","base64.txt",true);
-    xmlhttp.send();
-  }
   </script>
 </body>
 </html>

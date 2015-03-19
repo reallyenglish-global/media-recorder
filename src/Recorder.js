@@ -56,10 +56,6 @@ Recorder.prototype.pause = function pause() {
   console.log('Recorder.pause');
 };
 
-Recorder.prototype.getData = function getData() {
-  console.log('Recorder.getData');
-};
-
 Recorder.prototype._onEnded = function _onEnded() {
   if (this.ended) {
     this.ended.call(this);
