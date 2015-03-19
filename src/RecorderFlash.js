@@ -104,7 +104,7 @@ RecorderFlash.prototype.pause = function() {
 };
 
 RecorderFlash.prototype.stop = function() {
-  this.duration = this.flashInterface().recordStop();
+  this.duration = this.flashInterface().recordStop()/1000;
   return this.duration;
 };
 
