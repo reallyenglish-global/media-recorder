@@ -123,6 +123,10 @@ RecorderFlash.prototype.play = function() {
   this.flashInterface().playback();
 };
 
+RecorderFlash.prototype.pause = function() {
+  this.flashInterface().pause();
+};
+
 RecorderFlash.prototype.stop = function() {
   this.duration = this.flashInterface().recordStop();
   return this.duration;

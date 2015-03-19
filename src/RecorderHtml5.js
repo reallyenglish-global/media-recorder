@@ -112,6 +112,7 @@ RecorderHtml5.prototype.onAudioProcess = function onAudioProcess(e) {
 RecorderHtml5.prototype.record = function record() {
   this.clear();
   this.recording = true;
+  this.pausedAt = null;
   this._start_recording = this.context.currentTime;
 };
 
@@ -148,7 +149,6 @@ RecorderHtml5.prototype.play = function play() {
   this.outputSource.buffer = newBuffer;
   this.outputSource.connect(this.audio_context.destination);
   this.outputSource.onended = bind(this._onEnded, this);
-  this.outputSource.start(0);
   if (this.pausedAt) {
     this.startedAt = Date.now() - this.pausedAt;
     this.outputSource.start(0, this.pausedAt / 1000);

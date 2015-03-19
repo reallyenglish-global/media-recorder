@@ -27,7 +27,6 @@ Recorder.getInstance = function(options) {
     if (getUserMediaCheck && webAudioCheck) {
       recorderClass = RecorderHtml5;
     }
-    recorderClass = RecorderFlash;
     Recorder.instance = new recorderClass(options);
   }
   return Recorder.instance;
@@ -51,6 +50,10 @@ Recorder.prototype.play = function play() {
 
 Recorder.prototype.stop = function stop() {
   console.log('Recorder.stop');
+};
+
+Recorder.prototype.pause = function pause() {
+  console.log('Recorder.pause');
 };
 
 Recorder.prototype.getData = function getData() {
@@ -189,6 +192,10 @@ RecorderFlash.prototype.record = function() {
 
 RecorderFlash.prototype.play = function() {
   this.flashInterface().playback();
+};
+
+RecorderFlash.prototype.pause = function() {
+  this.flashInterface().pause();
 };
 
 RecorderFlash.prototype.stop = function() {
@@ -348,6 +355,7 @@ RecorderHtml5.prototype.onAudioProcess = function onAudioProcess(e) {
 RecorderHtml5.prototype.record = function record() {
   this.clear();
   this.recording = true;
+  this.pausedAt = null;
   this._start_recording = this.context.currentTime;
 };
 
@@ -380,15 +388,28 @@ RecorderHtml5.prototype.play = function play() {
   this.outputSource = this.audio_context.createBufferSource();
   newBuffer.getChannelData(0).set(buffers[0]);
   newBuffer.getChannelData(1).set(buffers[1]);
+  this.paused = false;
   this.outputSource.buffer = newBuffer;
   this.outputSource.connect(this.audio_context.destination);
   this.outputSource.onended = bind(this._onEnded, this);
-  this.outputSource.start(0);
+  if (this.pausedAt) {
+    this.startedAt = Date.now() - this.pausedAt;
+    this.outputSource.start(0, this.pausedAt / 1000);
+  } else {
+    this.startedAt = Date.now();
+    this.outputSource.start(0);
+  }
 };
 
 RecorderHtml5.prototype.stop = function stop() {
   this.recording = false;
   this.duration = this.context.currentTime - this._start_recording;
+};
+
+RecorderHtml5.prototype.pause = function pause() {
+  this.outputSource.stop(0);
+  this.pausedAt = Date.now() - this.startedAt;
+  this.paused = true;
 };
 
 RecorderHtml5.prototype.getData = function getData(callback){
