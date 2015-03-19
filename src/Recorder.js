@@ -27,7 +27,6 @@ Recorder.getInstance = function(options) {
     if (getUserMediaCheck && webAudioCheck) {
       recorderClass = RecorderHtml5;
     }
-    recorderClass = RecorderFlash;
     Recorder.instance = new recorderClass(options);
   }
   return Recorder.instance;
@@ -51,6 +50,10 @@ Recorder.prototype.play = function play() {
 
 Recorder.prototype.stop = function stop() {
   console.log('Recorder.stop');
+};
+
+Recorder.prototype.pause = function pause() {
+  console.log('Recorder.pause');
 };
 
 Recorder.prototype.getData = function getData() {

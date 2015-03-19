@@ -10,7 +10,8 @@
   <h1>Media record test</h1>
   <button onclick="record(this);">record</button>
   <button onclick="playback(this);" disabled>play</button>
-  <audio controls autoplay></audio>
+  <button onclick="pause(this);" disabled>pause</button>
+  <audio controls></audio>
   <a id="save" download="myRecording00.wav">Download</a>
   <h2>Log</h2>
   <pre id="log"></pre>
@@ -19,6 +20,7 @@
   <script>
   window.URL = window.URL || window.webkitURL;
   var _start = null;
+  var _paused = false;
   function __log(e, data) {
     log.innerHTML += "\n" + e + " " + (data || '');
   }
@@ -46,15 +48,30 @@
 
   function playback(button) {
     _start = new Date();
+    if (_paused) {
+      recorder && recorder.play();
+      _paused = false;
+      return;
+    }
+    _paused = false;
     recorder && recorder.stop();
     recorder.getData(dataReady);
     button.disabled = true;
     button.previousElementSibling.disabled = false;
+    button.nextElementSibling.disabled = false;
     __log('Stopped recording. duration:' +  recorder.duration);
     recorder.ended = function() {
       __log('play ended.');
     };
     recorder.play();
+  }
+
+  function pause(button) {
+    recorder && recorder.pause();
+    recorder.pause();
+    _paused = true;
+    button.previousElementSibling.disabled = false;
+    button.disabled = true;
   }
 
   window.onload = function init() {

@@ -144,15 +144,29 @@ RecorderHtml5.prototype.play = function play() {
   this.outputSource = this.audio_context.createBufferSource();
   newBuffer.getChannelData(0).set(buffers[0]);
   newBuffer.getChannelData(1).set(buffers[1]);
+  this.paused = false;
   this.outputSource.buffer = newBuffer;
   this.outputSource.connect(this.audio_context.destination);
   this.outputSource.onended = bind(this._onEnded, this);
   this.outputSource.start(0);
+  if (this.pausedAt) {
+    this.startedAt = Date.now() - this.pausedAt;
+    this.outputSource.start(0, this.pausedAt / 1000);
+  } else {
+    this.startedAt = Date.now();
+    this.outputSource.start(0);
+  }
 };
 
 RecorderHtml5.prototype.stop = function stop() {
   this.recording = false;
   this.duration = this.context.currentTime - this._start_recording;
+};
+
+RecorderHtml5.prototype.pause = function pause() {
+  this.outputSource.stop(0);
+  this.pausedAt = Date.now() - this.startedAt;
+  this.paused = true;
 };
 
 RecorderHtml5.prototype.getData = function getData(callback){
