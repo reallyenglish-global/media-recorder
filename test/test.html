@@ -46,6 +46,8 @@
     __log('Stopped recording. duration:' +  recorder.duration);
     recorder.ended = function() {
       __log('play ended.');
+      playBtn.disabled = false;
+      pauseBtn.disabled = true;
     };
     recorder.play();
   }
