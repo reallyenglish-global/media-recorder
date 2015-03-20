@@ -167,11 +167,11 @@ RecorderFlash.prototype.play = function() {
 };
 
 RecorderFlash.prototype.pause = function() {
-  this.flashInterface().pause();
+  this.flashInterface().playPause();
 };
 
 RecorderFlash.prototype.stop = function() {
-  this.duration = this.flashInterface().recordStop();
+  this.duration = this.flashInterface().recordStop()/1000;
   return this.duration;
 };
 

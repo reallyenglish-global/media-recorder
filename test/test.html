@@ -8,9 +8,9 @@
 <body>
 
   <h1>Media record test</h1>
-  <button onclick="record(this);">record</button>
-  <button onclick="playback(this);" disabled>play</button>
-  <button onclick="pause(this);" disabled>pause</button>
+  <button id="recordBtn" onclick="record(this);">record</button>
+  <button id="playBtn" onclick="playback(this);" disabled>play</button>
+  <button id="pauseBtn" onclick="pause(this);" disabled>pause</button>
   <a id="save" download="myRecording00.wav">Download</a>
   <h2>Log</h2>
   <pre id="log"></pre>
@@ -27,7 +27,7 @@
   function record(button) {
     recorder && recorder.record();
     button.disabled = true;
-    button.nextElementSibling.disabled = false;
+    playBtn.disabled = false;
     __log('Recording...');
   }
 
@@ -41,8 +41,8 @@
     _paused = false;
     recorder && recorder.stop();
     button.disabled = true;
-    button.previousElementSibling.disabled = false;
-    button.nextElementSibling.disabled = false;
+    recordBtn.disabled = false;
+    pauseBtn.disabled = false;
     __log('Stopped recording. duration:' +  recorder.duration);
     recorder.ended = function() {
       __log('play ended.');
@@ -54,7 +54,7 @@
     recorder && recorder.pause();
     recorder.pause();
     _paused = true;
-    button.previousElementSibling.disabled = false;
+    playBtn.disabled = false;
     button.disabled = true;
   }
 

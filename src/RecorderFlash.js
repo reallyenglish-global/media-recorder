@@ -100,7 +100,7 @@ RecorderFlash.prototype.play = function() {
 };
 
 RecorderFlash.prototype.pause = function() {
-  this.flashInterface().pause();
+  this.flashInterface().playPause();
 };
 
 RecorderFlash.prototype.stop = function() {
