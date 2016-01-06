@@ -1,0 +1,9 @@
+{
+  "name": "media-recorder",
+  "version": "0.0.1",
+  "main": "./lib/media-recorder.js",
+  "dependencies": {
+    "recorderjs": "git+https://github.com/chrisguttandin/Recorderjs.git",
+    "underscore": "*"
+  }
+}
