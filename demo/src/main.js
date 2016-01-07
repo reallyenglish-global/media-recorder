@@ -1,11 +1,11 @@
 var Recorder = require('../../lib/media-recorder');
 var $ = require('jquery');
 
-var recorder, adapterSelector, play, stop, record;
+var recorder, adapterSelector, stop, play, record;
+
 
 var recorderObserver = {
   onStoppedPlaying: function() {
-    console.log('onStoppedPlaying');
     play.show();
     stop.hide();
     record.show();
@@ -13,28 +13,33 @@ var recorderObserver = {
 }
 
 var onReady = function() {
+  stop = $('#stop');
+  play = $('#play');
+  record = $('#record');
   adapterSelector = $('#adapter');
 
   adapterSelector.change(function() {
     loadRecorder();
   });
 
-  bindControls();
   loadRecorder();
 };
 
 var loadRecorder = function() {
+  if(recorder) { recorder.remove(); }
+
   recorder = new Recorder({
     adapter: adapterSelector.val()
   });
 
   recorder.addObserver(recorderObserver);
+  bindControls();
 };
 
 var bindControls = function() {
-  stop = $('#stop');
-  play = $('#play');
-  record = $('#record');
+  play.off();
+  stop.off();
+  record.off();
 
   play.click(function() {
     record.hide();
