@@ -1,22 +1,64 @@
 var Recorder = require('../../lib/media-recorder');
+var $ = require('jquery');
 
-var recorder = new Recorder();
+var recorder, adapterSelector, play, stop, record;
 
-document.addEventListener("DOMContentLoaded", function() {
-  console.log('document loaded');
-  var play = document.getElementById('play');
-  var record = document.getElementById('record');
-  var stop = document.getElementById('stop');
+var recorderObserver = {
+  onStoppedPlaying: function() {
+    console.log('onStoppedPlaying');
+    play.show();
+    stop.hide();
+    record.show();
+  }
+}
 
-  record.addEventListener('click', function(e) {
+var onReady = function() {
+  adapterSelector = $('#adapter');
+
+  adapterSelector.change(function() {
+    loadRecorder();
+  });
+
+  bindControls();
+  loadRecorder();
+};
+
+var loadRecorder = function() {
+  recorder = new Recorder({
+    adapter: adapterSelector.val()
+  });
+
+  recorder.addObserver(recorderObserver);
+};
+
+var bindControls = function() {
+  stop = $('#stop');
+  play = $('#play');
+  record = $('#record');
+
+  play.click(function() {
+    record.hide();
+    play.hide();
+    stop.show();
+    recorder.startPlaying();
+  });
+
+  record.click(function() {
+    record.hide();
+    play.hide();
+    stop.show();
     recorder.startRecording();
   });
 
-  stop.addEventListener('click', function(e) {
+  stop.click(function() {
+    record.show();
+    play.show();
+    stop.hide();
     recorder.stopRecording();
+    recorder.stopPlaying();
   });
+};
 
-  play.addEventListener('click', function(e) {
-    recorder.startPlayback();
-  });
+$(document).ready(function() {
+  onReady();
 });

@@ -4,8 +4,16 @@
   </head>
   <body>
     <h1>Media Recorder Demo</h1>
-    <button id="record">Record</button>
-    <button id="stop">Stop</button>
-    <button id="play">Play</button>
+
+    <select id="adapter">
+      <option value="recorderjs">RecorderJS (Web Audio)</option>
+      <option value="swf">SWF (Flash Fallback)</option>
+    </select>
+
+    <div id="controls">
+      <button id="record">Record</button>
+      <button id="stop" style="display: none">Stop</button>
+      <button id="play">Play</button>
+    </div>
   </body>
 </html>
