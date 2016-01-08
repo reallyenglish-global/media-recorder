@@ -3,7 +3,6 @@ var $ = require('jquery');
 
 var recorder, adapterSelector, stop, play, record;
 
-
 var recorderObserver = {
   onStoppedPlaying: function() {
     play.show();
@@ -28,9 +27,7 @@ var onReady = function() {
 var loadRecorder = function() {
   if(recorder) { recorder.remove(); }
 
-  recorder = new Recorder({
-    adapter: adapterSelector.val()
-  });
+  recorder = new Recorder() //{
 
   recorder.addObserver(recorderObserver);
   bindControls();
