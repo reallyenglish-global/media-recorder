@@ -2,7 +2,8 @@
   "name": "media-recorder",
   "version": "0.0.1",
   "scripts": {
-    "build:demo": "browserify demo/src/main.js -o demo/main.js; cp lib/swf/recorder.swf demo/"
+    "build:demo": "browserify demo/src/main.js -o demo/main.js; cp lib/swf/recorder.swf demo/",
+    "tests": "browserify test/all.js -o test/build.js; open test/index.html"
   },
   "main": "./lib/media-recorder.js",
   "dependencies": {
@@ -12,6 +13,10 @@
 
   "devDependencies": {
     "browserify": "^11.1.0",
-    "jquery": "*" 
+    "jquery": "*", 
+    "mocha": "*",
+    "mocha-phantomjs": "*",
+    "sinon": "*",
+    "chai": "*"
   }
 }
