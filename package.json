@@ -15,7 +15,6 @@
     "browserify": "^11.1.0",
     "jquery": "*", 
     "mocha": "*",
-    "mocha-phantomjs": "*",
     "sinon": "*",
     "chai": "*"
   }
