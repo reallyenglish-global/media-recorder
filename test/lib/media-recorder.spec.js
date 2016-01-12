@@ -32,7 +32,7 @@ describe('MediaRecorder', function() {
 });
 
 var observerSpy = function() {
-  return spyObject(['onStoppedPlaying']);
+  return spyObject(['onStoppedPlaying', 'onStartedRecording']);
 };
 
 var adapterSpy = function() {
