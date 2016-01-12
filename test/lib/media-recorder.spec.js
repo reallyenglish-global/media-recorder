@@ -5,7 +5,7 @@ var sinon = require('sinon');
 var _ = require('underscore');
 var observable = require('../../lib/observable');
 
-var relayedFunctions = ['startRecording', 'stopRecording', 'startPlaying', 'stopPlaying', 'isRecording']; 
+var relayedFunctions = ['startRecording', 'stopRecording', 'startPlaying', 'stopPlaying', 'isRecording', 'canPlay']; 
 
 describe('MediaRecorder', function() {
   var recorder, observer, adapter;
