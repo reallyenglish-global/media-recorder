@@ -12,7 +12,8 @@ describe('RecorderJsAdapter', function() {
 
   before(function() {
     observer = {
-      onStoppedPlaying: sinon.spy()
+      onStoppedPlaying: sinon.spy(),
+      onStartedRecording: sinon.spy()
     };
 
     adapter = new RecorderJsAdapter();  
