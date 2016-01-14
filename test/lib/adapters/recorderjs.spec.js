@@ -3,7 +3,7 @@ window = {
 };
 
 var RecorderJsAdapter = require('../../../lib/adapters/recorderjs');
-var adapterApi = ['startRecording', 'stopRecording', 'startPlaying', 'stopPlaying', 'isRecording', 'canPlay']; 
+var adapterApi = ['startRecording', 'stopRecording', 'startPlaying', 'stopPlaying', 'reset']; 
 var _ = require('underscore');
 var sinon = require('sinon');
 
