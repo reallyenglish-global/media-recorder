@@ -27,7 +27,15 @@ var onReady = function() {
 var loadRecorder = function() {
   if(recorder) { recorder.remove(); }
 
-  recorder = new Recorder() //{
+  var adapter;
+
+  if(adapterSelector.val() != '') {
+    adapter = adapterSelector.val();
+  }
+
+  recorder = new Recorder({
+    adapter: adapter
+  });
 
   recorder.addObserver(recorderObserver);
   bindControls();
