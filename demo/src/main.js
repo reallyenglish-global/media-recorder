@@ -8,6 +8,10 @@ var recorderObserver = {
     play.show();
     stop.hide();
     record.show();
+  },
+
+  onStartedRecording: function() {
+    stop.show();
   }
 }
 
@@ -56,8 +60,8 @@ var bindControls = function() {
   record.click(function() {
     record.hide();
     play.hide();
-    stop.show();
     recorder.startRecording();
+    console.log('starting recording');
   });
 
   stop.click(function() {
