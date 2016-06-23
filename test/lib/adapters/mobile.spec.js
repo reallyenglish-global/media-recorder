@@ -1,5 +1,5 @@
 var MobileAdapter = require('../../../lib/adapters/mobile');
-var adapterApi = ['startRecording', 'stopRecording', 'startPlaying', 'stopPlaying', 'reset']; 
+var adapterApi = ['startRecording', 'stopRecording', 'startPlaying', 'stopPlaying', 'reset'];
 var _ = require('underscore');
 
 describe('MobileAdapter', function() {
@@ -18,13 +18,13 @@ describe('MobileAdapter', function() {
       });
 
       it('returns true', function() {
-        expect(MobileAdapter.isSupported()).to.be.true; 
+        expect(MobileAdapter.isSupported()).to.be.true;
       });
     });
 
     context('client does not support mobile app recording', function() {
       it('returns false', function() {
-        expect(MobileAdapter.isSupported()).to.be.false; 
+        expect(MobileAdapter.isSupported()).to.be.false;
       });
     });
   });
@@ -33,8 +33,20 @@ describe('MobileAdapter', function() {
     var adapter;
 
     before(function() {
-      adapter = new MobileAdapter();  
+      window.rels = {
+        mobile: {
+          recorder: function() {
+            this.addObserver = function() {}
+          }
+        }
+      };
+      adapter = new MobileAdapter();
     });
+
+    after(function() {
+      delete window.rels;
+    });
+
 
     it('supports the adapter interface', function() {
       _.each(adapterApi, function(name) {
