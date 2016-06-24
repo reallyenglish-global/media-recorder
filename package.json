@@ -8,12 +8,13 @@
   "main": "./lib/media-recorder.js",
   "dependencies": {
     "recorderjs": "git+https://github.com/chrisguttandin/Recorderjs.git",
-    "underscore": "*"
+    "underscore": "*",
+    "jquery": "*",
+    "webrtc-adapter": "*"
   },
 
   "devDependencies": {
     "browserify": "^11.1.0",
-    "jquery": "*", 
     "mocha": "*",
     "sinon": "*",
     "chai": "*"

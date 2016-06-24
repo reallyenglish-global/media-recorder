@@ -1,6 +1,6 @@
 
 var RecorderJsAdapter = require('../../../lib/adapters/recorderjs');
-var adapterApi = ['startRecording', 'stopRecording', 'startPlaying', 'stopPlaying', 'reset']; 
+var adapterApi = ['startRecording', 'stopRecording', 'startPlaying', 'stopPlaying', 'reset'];
 var _ = require('underscore');
 var sinon = require('sinon');
 
@@ -27,13 +27,7 @@ describe('RecorderJsAdapter', function() {
     window = {
       AudioContext: {}
     };
-    observer = {
-      onStoppedPlaying: sinon.spy(),
-      onStartedRecording: sinon.spy()
-    };
-
-    adapter = new RecorderJsAdapter();  
-    adapter.addObserver(observer);
+    adapter = new RecorderJsAdapter();
   });
 
   it('supports the adapter interface', function() {
