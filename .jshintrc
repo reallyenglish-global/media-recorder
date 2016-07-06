@@ -1,0 +1,65 @@
+{
+  "node"          : true,
+  "browser"       : true,
+  "esnext"        : true,
+  "bitwise"       : true,
+  "curly"         : true,
+  "eqeqeq"        : true,
+  "immed"         : true,
+  "indent"        : 2,
+  "latedef"       : true,
+  "newcap"        : false,
+  "noarg"         : true,
+  "regexp"        : true,
+  "undef"         : true,
+  "strict"        : true,
+  "trailing"      : true,
+  "smarttabs"     : true,
+  "laxbreak"      : true,
+  "expr"          : true,
+  "evil"          : true,
+  "jquery"        : false,
+  "asi"           : true,
+  "browserify"    : true,
+  "unused"        : false,    // allow unused vars
+  "quotmark"      : false,    // allow mixed quotes
+  "camelcase"     : false,    // allow camel case
+  "eqnull"        : false,    // Tolerate use of `== null`.
+  "funcscope"     : false,    // Tolerate declarations of variables inside of control structures while accessing them later from the outside.
+  "laxcomma"      : false,    // Suppress warnings about comma-first coding style.
+  "proto"         : false,    // Tolerate __proto__ property. This property is deprecated.
+  "shadow"        : false,    // Allows re-define variables later in code e.g. `var x=1; x=2;`.
+  "sub"           : false,    // Tolerate all forms of subscript notation besides dot notation e.g. `dict['key']` instead of `dict.key`.
+  "supernew"      : false,    // Tolerate `new function () { ... };` and `new Object;`.
+  "validthis"     : false,    // Tolerate strict violations when the code is running in strict mode and you use this in a non-constructor function.
+  "regexdash"     : false,    // Tolerate unescaped last dash i.e. `[-...]`.
+  "scripturl"     : false,    // Tolerate script-targeted URLs.
+  "predef":
+  [
+    "sco",
+    "Raygun",
+    "confirm",
+    "alert",
+    "define",
+    "jasmine",
+    "sinon",
+    "spyOn",
+    "it",
+    "console",
+    "describe",
+    "expect",
+    "before",
+    "beforeEach",
+    "after",
+    "afterEach",
+    "context",
+    "waits",
+    "waitsFor",
+    "runs",
+    "fixtures",
+    "device",
+    "cordova",
+    "instrument",
+    "CryptoJS"
+  ]
+}

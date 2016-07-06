@@ -1,11 +1,17 @@
 {
   "name": "media-recorder",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/reallyenglish/media-recorder"
+  },
+  "license": "UNLICENSED",
   "scripts": {
     "build:demo": "browserify demo/src/main.js -o demo/main.js; cp lib/swf/recorder.swf demo/",
     "tests": "browserify test/all.js -o test/build.js; open test/index.html"
   },
   "main": "./lib/media-recorder.js",
+
   "dependencies": {
     "recorderjs": "git+https://github.com/chrisguttandin/Recorderjs.git",
     "underscore": "*",
@@ -14,9 +20,16 @@
   },
 
   "devDependencies": {
+    "gulp" :"latest",
+    "rels-gulp": "git+ssh://git@github.com/reallyenglish/rels-gulp",
+    "commitizen": "latest",
     "browserify": "^11.1.0",
     "mocha": "*",
-    "sinon": "*",
-    "chai": "*"
+    "jshint": "^2.8.0",
+    "chai": "*",
+    "chai-as-promised": "*",
+    "colors": "*",
+    "sinon": "latest",
+    "sinon-chai": "*"
   }
 }
