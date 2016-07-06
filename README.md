@@ -1,4 +1,4 @@
-# media-recorder
+# media-recorder [![Build Status](https://travis-ci.com/reallyenglish/media-recorder.svg?token=nQpkqttSTJftx5LczSUb&branch=master)](https://travis-ci.com/reallyenglish/media-recorder)
 
 test
 
