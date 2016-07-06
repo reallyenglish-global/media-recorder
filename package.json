@@ -5,6 +5,9 @@
     "type": "git",
     "url": "git+ssh://git@github.com/reallyenglish/media-recorder"
   },
+  "scripts": {
+    "test": "gulp test"
+  },
   "license": "UNLICENSED",
   "main": "./lib/media-recorder.js",
   "dependencies": {
