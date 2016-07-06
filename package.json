@@ -17,7 +17,7 @@
     "webrtc-adapter": "*"
   },
   "release": {
-    "getLatestVersion": "last-release-git-tag",
+    "getLastRelease": "./node_modules/last-release-git-tag/index.js",
     "debug": true
   },
   "devDependencies": {
