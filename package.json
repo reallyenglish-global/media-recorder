@@ -1,12 +1,12 @@
 {
   "name": "media-recorder",
-  "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/reallyenglish/media-recorder"
+    "url": "https://github.com/reallyenglish/media-recorder"
   },
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "semantic-release": "semantic-release pre"
   },
   "license": "UNLICENSED",
   "main": "./lib/media-recorder.js",
@@ -16,9 +16,15 @@
     "jquery": "*",
     "webrtc-adapter": "*"
   },
-
+  "release": {
+    "getLatestVersion": "last-release-git-tag",
+    "debug": true
+  },
   "devDependencies": {
-    "gulp" :"latest",
+    "last-release-git-tag": "latest",
+    "semantic-release-cli": "latest",
+    "semantic-release": "^4.3.5",
+    "gulp": "latest",
     "rels-gulp": "git+ssh://git@github.com/reallyenglish/rels-gulp",
     "commitizen": "latest",
     "browserify": "^11.1.0",
