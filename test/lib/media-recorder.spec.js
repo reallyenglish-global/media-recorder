@@ -1,49 +1,49 @@
-'use strict'
+'use strict';
 
-var MediaRecorder = require('../../lib/media-recorder');
-var sinon = require('sinon');
 var _ = require('underscore');
-var observable = require('../../lib/observable');
-
-var relayedFunctions = ['startRecording', 'stopRecording', 'startPlaying', 'stopPlaying', 'reset']; 
 
 describe('MediaRecorder', function() {
-  var recorder, observer, adapter;
+
+  var MediaRecorder = require('../../lib/media-recorder');
+  var sandbox = sinon.sandbox.create();
+  var api = ['startRecording', 'stopRecording', 'startPlaying', 'stopPlaying', 'reset'];
+  var broadcasts = ['stopped:playing', 'started:recording'];
+  var recorder
+  var adapter = { remove: function() {}};
+
+  var observer = {
+    onStartedRecording: sandbox.spy(),
+    onStoppedPlaying: sandbox.spy()
+  };
 
   before(function() {
-    observer = observerSpy();
-    adapter = adapterSpy();
-    _.extend(adapter, observable);
-
-    recorder = new MediaRecorder({
-      adapter: adapter
+    _.each(api, function(func) {
+      adapter[func] = sandbox.spy();
     });
-    recorder.addObserver(observer);
+    recorder = new MediaRecorder({});
+    recorder.adapter = adapter;
+    recorder.addObserver(observer, broadcasts);
   });
 
-  it('Relays functions to adapter', function() {
-    _.each(relayedFunctions, function(name) {
-      recorder[name]();
+  after(function() {
+    sandbox.restore();
+    recorder.remove();
+  });
 
+  it('Relays api functions to adapter', function() {
+
+    _.each(api, function(name) {
+      recorder[name]();
       expect(adapter[name]).to.have.been.called;
     });
   });
 
+  it('Relays broadcasts', function() {
+
+    _.each(['onStoppedPlaying', 'onStartedRecording'], function(name) {
+      recorder[name]();
+      expect(observer[name]).to.be.called;
+    });
+  });
 });
 
-var observerSpy = function() {
-  return spyObject(['onStoppedPlaying', 'onStartedRecording']);
-};
-
-var adapterSpy = function() {
-  return function() { 
-    return _.extend(spyObject(relayedFunctions), observable);
-  }
-};
-
-var spyObject = function(functions) {
-  return _.reduce(functions, function(memo, name) {
-    memo[name] = sinon.spy();
-    return memo;
-  }, {});
-}

@@ -1,23 +1,36 @@
-window = {
-  AudioContext: {}
-};
-
-var RecorderJsAdapter = require('../../../lib/adapters/recorderjs');
-var adapterApi = ['startRecording', 'stopRecording', 'startPlaying', 'stopPlaying', 'reset']; 
-var _ = require('underscore');
-var sinon = require('sinon');
-
+'use strict';
 describe('RecorderJsAdapter', function() {
-  var adapter, observer;
+  var RecorderJsAdapter = require('../../../lib/adapters/recorderjs');
+  var adapterApi = ['startRecording', 'stopRecording', 'startPlaying', 'stopPlaying', 'reset'];
+  var _ = require('underscore');
+  var con;
 
   before(function() {
-    observer = {
-      onStoppedPlaying: sinon.spy(),
-      onStartedRecording: sinon.spy()
+    con = window.AudioContext;
+    window.AudioContext = function() {
+      this.fake = 'fake'
     };
+  });
 
-    adapter = new RecorderJsAdapter();  
-    adapter.addObserver(observer);
+  after(function() {
+    window.AudioContext = con;
+  });
+
+  var adapter, observer;
+
+  describe('isSupported', function() {
+    context('client supports web audio', function() {
+      it('is supported', function() {
+        RecorderJsAdapter.isSupported();
+      });
+    });
+  });
+
+  before(function() {
+    window = {
+      AudioContext: {}
+    };
+    adapter = new RecorderJsAdapter();
   });
 
   it('supports the adapter interface', function() {
