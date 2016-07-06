@@ -1,7 +1,6 @@
-'use strict'
+'use strict';
 
 var _ = require('underscore');
-var sinon = require('sinon');
 
 describe('MediaRecorder', function() {
 
@@ -10,7 +9,7 @@ describe('MediaRecorder', function() {
   var api = ['startRecording', 'stopRecording', 'startPlaying', 'stopPlaying', 'reset'];
   var broadcasts = ['stopped:playing', 'started:recording'];
   var recorder
-  var adapter = {};
+  var adapter = { remove: function() {}};
 
   var observer = {
     onStartedRecording: sandbox.spy(),
@@ -21,7 +20,8 @@ describe('MediaRecorder', function() {
     _.each(api, function(func) {
       adapter[func] = sandbox.spy();
     });
-    recorder = new MediaRecorder({ adapter: adapter });
+    recorder = new MediaRecorder({});
+    recorder.adapter = adapter;
     recorder.addObserver(observer, broadcasts);
   });
 
