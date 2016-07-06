@@ -11,9 +11,10 @@
   "license": "UNLICENSED",
   "main": "./lib/media-recorder.js",
   "dependencies": {
+    "dotenv": "^2.0.0",
+    "jquery": "*",
     "recorderjs": "git+https://github.com/chrisguttandin/Recorderjs.git",
     "underscore": "*",
-    "jquery": "*",
     "webrtc-adapter": "*"
   },
   "release": {
