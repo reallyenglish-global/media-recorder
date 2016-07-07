@@ -12,7 +12,7 @@ before_install:
 before_script:
   - npm prune
 after_success:
-  - npm run --verbose semantic-release
+  - npm run --verbose semantic-release pre && semantic-release post 
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
