@@ -2,7 +2,7 @@
   "name": "media-recorder",
   "repository": {
     "type": "git",
-    "url": "https://github.com/reallyenglish/media-recorder.git"
+    "url": "https://github.com/reallyenglish/media-recorder"
   },
   "scripts": {
     "test": "gulp test",
