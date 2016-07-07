@@ -2,11 +2,11 @@
   "name": "media-recorder",
   "repository": {
     "type": "git",
-    "url": "https://github.com/reallyenglish/media-recorder"
+    "url": "https://github.com/reallyenglish/media-recorder.git"
   },
   "scripts": {
     "test": "gulp test",
-    "semantic-release": "semantic-release pre"
+    "semantic-release": "semantic-release pre && semantic-release post"
   },
   "license": "UNLICENSED",
   "main": "./lib/media-recorder.js",
@@ -18,8 +18,7 @@
   },
   "release": {
     "getLastRelease": "./node_modules/last-release-git-tag/index.js",
-    "debug": false,
-    "githubUrl": "https://github.com/reallyenglish/media-recorder"
+    "debug": false
   },
   "devDependencies": {
     "last-release-git-tag": "latest",
@@ -35,5 +34,6 @@
     "colors": "*",
     "sinon": "latest",
     "sinon-chai": "*"
-  }
+  },
+  "version": "1.0.1"
 }
