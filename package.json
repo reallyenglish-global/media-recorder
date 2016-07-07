@@ -21,19 +21,25 @@
     "debug": false
   },
   "devDependencies": {
-    "last-release-git-tag": "latest",
-    "semantic-release": "^4.3.5",
-    "gulp": "latest",
-    "rels-gulp": "git+ssh://git@github.com/reallyenglish/rels-gulp",
-    "commitizen": "latest",
     "browserify": "^11.1.0",
-    "mocha": "*",
-    "jshint": "^2.8.0",
     "chai": "*",
     "chai-as-promised": "*",
     "colors": "*",
+    "commitizen": "latest",
+    "cz-conventional-changelog": "^1.1.6",
+    "gulp": "latest",
+    "jshint": "^2.8.0",
+    "last-release-git-tag": "latest",
+    "mocha": "*",
+    "rels-gulp": "git+ssh://git@github.com/reallyenglish/rels-gulp",
+    "semantic-release": "^4.3.5",
     "sinon": "latest",
     "sinon-chai": "*"
   },
-  "version": "1.0.1"
+  "version": "1.0.1",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
