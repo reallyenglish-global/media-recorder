@@ -27,6 +27,7 @@
     "colors": "*",
     "commitizen": "latest",
     "cz-conventional-changelog": "^1.1.6",
+    "ghooks": "^1.3.2",
     "gulp": "latest",
     "jshint": "^2.8.0",
     "last-release-git-tag": "latest",
@@ -34,10 +35,14 @@
     "rels-gulp": "git+ssh://git@github.com/reallyenglish/rels-gulp",
     "semantic-release": "^4.3.5",
     "sinon": "latest",
-    "sinon-chai": "*"
+    "sinon-chai": "*",
+    "validate-commit-msg": "^2.6.1"
   },
   "version": "1.0.1",
   "config": {
+    "ghooks": {
+      "commit-msg": "validate-commit-msg"
+    },
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
