@@ -18,7 +18,7 @@
   },
   "release": {
     "getLastRelease": "./node_modules/last-release-git-tag/index.js",
-    "debug": true,
+    "debug": false,
     "githubUrl": "https://github.com/reallyenglish/media-recorder"
   },
   "devDependencies": {
