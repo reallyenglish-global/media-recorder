@@ -3,5 +3,4 @@ demo/recorder.swf
 .DS_Store
 node_modules
 test/build.js
-.env
 npm-debug.log
