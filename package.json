@@ -1,24 +1,18 @@
 {
   "name": "media-recorder",
+  "version": "1.0.1",
+  "description": "Media Recorder",
+  "main": "./lib/media-recorder.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/reallyenglish/media-recorder"
   },
-  "scripts": {
-    "test": "gulp test",
-    "semantic-release": "semantic-release pre && semantic-release post"
-  },
   "license": "UNLICENSED",
-  "main": "./lib/media-recorder.js",
   "dependencies": {
     "jquery": "*",
     "recorderjs": "git+https://github.com/chrisguttandin/Recorderjs.git",
     "underscore": "*",
     "webrtc-adapter": "*"
-  },
-  "release": {
-    "getLastRelease": "./node_modules/last-release-git-tag/index.js",
-    "debug": false
   },
   "devDependencies": {
     "browserify": "^11.1.0",
@@ -30,13 +24,20 @@
     "jshint": "^2.8.0",
     "last-release-git-tag": "latest",
     "mocha": "*",
-    "rels-gulp": "git+ssh://git@github.com/reallyenglish/rels-gulp",
+    "rels-gulp": "git+ssh://git@github.com/reallyenglish/rels-gulp#v1.0.1",
     "semantic-release": "^4.3.5",
     "sinon": "latest",
     "sinon-chai": "*",
     "validate-commit-msg": "^2.6.1"
   },
-  "version": "1.0.1",
+  "scripts": {
+    "test": "gulp test",
+    "semantic-release": "semantic-release pre && semantic-release post"
+  },
+  "release": {
+    "getLastRelease": "./node_modules/last-release-git-tag/index.js",
+    "debug": false
+  },
   "config": {
     "validate-commit-msg": {
       "helpMessage": "Valid types are: feat, fix, docs, style, refactor, perf, test, chore, revert \nNote that 'feat' and 'fix' will create new releases as will having BREAKING CHANGE: in the footer of your commit message."
