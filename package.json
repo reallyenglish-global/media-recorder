@@ -24,7 +24,7 @@
     "jshint": "^2.8.0",
     "last-release-git-tag": "latest",
     "mocha": "*",
-    "rels-gulp": "git+ssh://git@github.com/reallyenglish/rels-gulp#v1.0.1",
+    "rels-gulp": "git+ssh://git@github.com/reallyenglish/rels-gulp#v1.0.2",
     "semantic-release": "^4.3.5",
     "sinon": "latest",
     "sinon-chai": "*",
