@@ -13,6 +13,10 @@ module.exports = {
 var _ = require('underscore');
 var Observable = require('../mixins/Observable');
 
+var STOPPED = 1,
+    PLAYING = 2,
+    RECORDING = 3
+
 var MobileAdapter = function(config) {
   this.initialize(config);
 };
@@ -26,29 +30,35 @@ MobileAdapter.prototype = {
   initialize: function(){
     this.Recorder = window.rels.mobile.recorder;
 
+    this.state = STOPPED;
+
     this.recorder = new this.Recorder();
     this.recorder.addObserver(this, ['error', 'playback-ended']);
   },
 
   startRecording: function() {
     this.stopPlaying();
-    this.stopRecording();
 
     this.recorder.startRecord();
+    this._setState(RECORDING);
 
     this.notifyObservers('onStartedRecording');
   },
 
   stopRecording: function() {
-    this.recorder && this.recorder.stopRecord();
+    this.state === RECORDING && this.recorder.stopRecord();
+    this._setState(STOPPED);
   },
 
   startPlaying: function() {
     this.recorder.play();
+    this.setState(PLAYING);
   },
 
   stopPlaying: function() {
-    this.recorder && this.recorder.stop();
+    this.state === PLAYING && this.recorder.stopRecord();
+    this._setState(STOPPED);
+
     this.notifyObservers('onStoppedPlaying');
   },
 
@@ -72,6 +82,10 @@ MobileAdapter.prototype = {
 
   onPlaybackEnded: function() {
     this.notifyObservers('onStoppedPlaying');
+  },
+
+  _setState: function(state) {
+    this.state = state;
   }
 };
 
@@ -265,6 +279,7 @@ SwfAdapter.prototype = {
 
   stopPlaying: function() {
     this.flashInterface() && this.flashInterface().playPause();
+    this._onEnded();
   },
 
   reset: function() {
