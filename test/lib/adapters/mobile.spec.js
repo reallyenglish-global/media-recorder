@@ -1,6 +1,19 @@
 var MobileAdapter = require('../../../lib/adapters/mobile');
+var sinon = require('sinon');
 var adapterApi = ['startRecording', 'stopRecording', 'startPlaying', 'stopPlaying', 'reset'];
 var _ = require('underscore');
+
+var fakeRecorder = function() {};
+
+_.extend(fakeRecorder.prototype, {
+  addObserver: sinon.spy(),
+  startRecord: sinon.spy(),
+  stopRecord: sinon.spy(),
+  play: sinon.spy(),
+  stop: sinon.spy(),
+  release: sinon.spy(),
+  reset: sinon.spy()
+});
 
 describe('MobileAdapter', function() {
   describe('isSupported', function() {
@@ -35,22 +48,19 @@ describe('MobileAdapter', function() {
     before(function() {
       window.rels = {
         mobile: {
-          recorder: function() {
-            this.addObserver = function() {}
-          }
+          recorder: fakeRecorder
         }
       };
-      adapter = new MobileAdapter();
+      adapter = new MobileAdapter()
     });
 
     after(function() {
       delete window.rels;
     });
 
-
     it('supports the adapter interface', function() {
       _.each(adapterApi, function(name) {
-        expect(typeof adapter[name]).to.eql('function');
+        expect(_.bind(adapter[name], adapter)).to.not.throw(Error);
       });
     });
   });
