@@ -56,7 +56,7 @@ MobileAdapter.prototype = {
   },
 
   stopPlaying: function() {
-    this.state === PLAYING && this.recorder.stopRecord();
+    this.state === PLAYING && this.recorder.stop();
     this._setState(STOPPED);
 
     this.notifyObservers('onStoppedPlaying');
@@ -81,7 +81,7 @@ MobileAdapter.prototype = {
   },
 
   onPlaybackEnded: function() {
-    this.notifyObservers('onStoppedPlaying');
+    this.state === PLAYING && this.notifyObservers('onStoppedPlaying');
   },
 
   _setState: function(state) {
