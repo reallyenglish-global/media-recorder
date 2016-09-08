@@ -4,3 +4,4 @@ demo/recorder.swf
 node_modules
 test/build.js
 npm-debug.log
+test/spec-manifest.js
