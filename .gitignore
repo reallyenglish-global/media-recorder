@@ -3,5 +3,6 @@ demo/recorder.swf
 .DS_Store
 node_modules
 test/build.js
+test/vendor.js
 npm-debug.log
 test/spec-manifest.js
