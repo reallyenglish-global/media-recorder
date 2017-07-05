@@ -11,7 +11,7 @@
   "dependencies": {
     "jquery": "*",
     "underscore": "*",
-    "webrtc-adapter": "*"
+    "webrtc-adapter": "4.0.2"
   },
   "devDependencies": {
     "browserify": "^11.1.0",
