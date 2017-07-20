@@ -3,6 +3,9 @@
   "version": "1.0.1",
   "description": "Media Recorder",
   "main": "./lib/media-recorder.js",
+  "browserify": {
+    "transform": "workerify"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/reallyenglish/media-recorder"
@@ -11,10 +14,11 @@
   "dependencies": {
     "jquery": "*",
     "underscore": "*",
+    "browserify": "^11.1.0",
+    "workerify": "^0.3.0",
     "webrtc-adapter": "4.0.2"
   },
   "devDependencies": {
-    "browserify": "^11.1.0",
     "chai": "*",
     "chai-as-promised": "*",
     "colors": "*",
