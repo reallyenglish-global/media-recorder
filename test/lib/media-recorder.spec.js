@@ -11,13 +11,14 @@ describe('MediaRecorder', function() {
   describe('standard usage', function() {
     var sandbox = sinon.sandbox.create();
     var api = ['startRecording', 'stopRecording', 'startPlaying', 'stopPlaying', 'reset'];
-    var broadcasts = ['stopped:playing', 'started:recording'];
+    var broadcasts = ['stopped:playing', 'started:recording', 'stopped:recording'];
     var recorder
     var adapter = { remove: function() {}};
 
     var observer = {
       onStartedRecording: sandbox.spy(),
-      onStoppedPlaying: sandbox.spy()
+      onStoppedPlaying: sandbox.spy(),
+      onStoppedRecording: sandbox.spy()
     };
 
     before(function() {
@@ -44,7 +45,7 @@ describe('MediaRecorder', function() {
 
     it('Relays broadcasts', function() {
 
-      _.each(['onStoppedPlaying', 'onStartedRecording'], function(name) {
+      _.each(['onStoppedPlaying', 'onStartedRecording', 'onStoppedRecording'], function(name) {
         recorder[name]();
         expect(observer[name]).to.be.called;
       });
@@ -53,10 +54,10 @@ describe('MediaRecorder', function() {
 
   describe('choosing the correct adapter', function() {
     var recorder;
-    
+
     before(function() {
       recorder = new MediaRecorder({});
-    }); 
+    });
 
     context('mobile', function() {
       before(function() {
@@ -101,4 +102,3 @@ describe('MediaRecorder', function() {
     });
   });
 });
-

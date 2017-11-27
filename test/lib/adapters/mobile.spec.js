@@ -31,7 +31,6 @@ var teardown = function() {
   delete window.rels;
 }
 
-
 describe('MobileAdapter', function() {
   describe('isSupported', function() {
     context('client supports mobile app recording', function() {
@@ -87,6 +86,33 @@ describe('MobileAdapter', function() {
 
     it('notifies', function() {
       expect(observer.onStoppedPlaying).to.have.been.called;
+    });
+
+    it('sets the correct state', function() {
+      expect(adapter.state).to.eql(STOPPED);
+    });
+  });
+
+  describe('onRecordingStopped', function() {
+    var adapter,
+        observer = {
+          onStoppedRecording: sinon.spy()
+        };
+
+    before(function() {
+      setup();
+      adapter = new MobileAdapter();
+      adapter.addObserver(observer, ['stopped-recording']);
+
+      adapter.startRecording();
+
+      adapter.onRecordingStopped();
+    });
+
+    after(teardown);
+
+    it('notifies', function() {
+      expect(observer.onStoppedRecording).to.have.been.called;
     });
 
     it('sets the correct state', function() {
