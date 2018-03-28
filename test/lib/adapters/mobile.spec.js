@@ -28,9 +28,11 @@ var setup = function() {
 }
 
 var teardown = function() {
+  _.each(fakeRecorder, function(fn) {
+    fn.reset()
+  })
   delete window.rels;
 }
-
 
 describe('MobileAdapter', function() {
   describe('isSupported', function() {
@@ -93,4 +95,75 @@ describe('MobileAdapter', function() {
       expect(adapter.state).to.eql(STOPPED);
     });
   });
+
+  describe('stopRecording', function() {
+    var adapter,
+        observer = {
+          onStoppedRecording: sinon.spy()
+        };
+
+    before(function() {
+      setup();
+      adapter = new MobileAdapter();
+      adapter.addObserver(observer, ['stopped-recording']);
+
+      adapter.startRecording();
+
+      adapter.stopRecording();
+    });
+
+    after(teardown);
+
+    it('notifies', function() {
+      expect(observer.onStoppedRecording).to.have.been.called;
+    });
+
+    it('sets the correct state', function() {
+      expect(adapter.state).to.eql(STOPPED);
+    });
+  });
+
+  describe('onRecordingStopped', function() {
+    var adapter,
+        observer = {
+          onStoppedRecording: sinon.spy()
+        };
+
+    before(function() {
+      setup();
+      adapter = new MobileAdapter();
+      adapter.addObserver(observer, ['stopped-recording']);
+
+      adapter.startRecording();
+    });
+
+    after(function() {
+      teardown()
+    });
+
+    describe('when the recorder is recording', function() {
+      before(function() {
+        adapter.onRecordingStopped();
+      })
+
+      it('notifies', function() {
+        expect(observer.onStoppedRecording).to.have.been.called;
+      });
+
+      it('sets the correct state', function() {
+        expect(adapter.state).to.eql(STOPPED);
+      });
+
+      describe('when the recorder is not recording', function() {
+        before(function() {
+          observer.onStoppedRecording.reset()
+          adapter.onRecordingStopped();
+        })
+
+        it('notifies', function() {
+          expect(observer.onStoppedRecording).not.to.have.been.called;
+        });
+      })
+    });
+  })
 });
