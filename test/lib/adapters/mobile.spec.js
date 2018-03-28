@@ -19,7 +19,7 @@ _.extend(fakeRecorder.prototype, {
   reset: sinon.spy()
 });
 
-var setup = function() {
+var setupFakeRecorder = function() {
   window.rels = {
     mobile: {
       recorder: fakeRecorder
@@ -27,18 +27,15 @@ var setup = function() {
   };
 }
 
-var teardown = function() {
-  _.each(fakeRecorder, function(fn) {
-    fn.reset()
-  })
+var removeFakeRecorder = function() {
   delete window.rels;
 }
 
 describe('MobileAdapter', function() {
   describe('isSupported', function() {
     context('client supports mobile app recording', function() {
-      before(setup);
-      after(teardown);
+      before(setupFakeRecorder);
+      after(removeFakeRecorder);
 
       it('returns true', function() {
         expect(MobileAdapter.isSupported()).to.be.true;
@@ -53,14 +50,14 @@ describe('MobileAdapter', function() {
   });
 
   describe('supports adapter API', function() {
-    var adapter;
+    var adapter
 
     before(function() {
-      setup();
+      setupFakeRecorder();
       adapter = new MobileAdapter()
     });
 
-    after(teardown);
+    after(removeFakeRecorder);
 
     it('supports the adapter interface', function() {
       _.each(adapterApi, function(name) {
@@ -70,13 +67,13 @@ describe('MobileAdapter', function() {
   });
 
   describe('onPlaybackEnded', function() {
-    var adapter,
-        observer = {
-          onStoppedPlaying: sinon.spy()
-        };
+    var adapter
+    const observer = {
+      onStoppedPlaying: sinon.spy()
+    }
 
     before(function() {
-      setup();
+      setupFakeRecorder();
       adapter = new MobileAdapter();
       adapter.addObserver(observer, ['stopped-playing']);
 
@@ -85,7 +82,7 @@ describe('MobileAdapter', function() {
       adapter.onPlaybackEnded();
     });
 
-    after(teardown);
+    after(removeFakeRecorder);
 
     it('notifies', function() {
       expect(observer.onStoppedPlaying).to.have.been.called;
@@ -97,13 +94,13 @@ describe('MobileAdapter', function() {
   });
 
   describe('stopRecording', function() {
-    var adapter,
-        observer = {
-          onStoppedRecording: sinon.spy()
-        };
+    var adapter
+    const observer = {
+      onStoppedRecording: sinon.spy()
+    }
 
     before(function() {
-      setup();
+      setupFakeRecorder();
       adapter = new MobileAdapter();
       adapter.addObserver(observer, ['stopped-recording']);
 
@@ -112,7 +109,7 @@ describe('MobileAdapter', function() {
       adapter.stopRecording();
     });
 
-    after(teardown);
+    after(removeFakeRecorder);
 
     it('notifies', function() {
       expect(observer.onStoppedRecording).to.have.been.called;
@@ -124,27 +121,31 @@ describe('MobileAdapter', function() {
   });
 
   describe('onRecordingStopped', function() {
-    var adapter,
-        observer = {
-          onStoppedRecording: sinon.spy()
-        };
+    var adapter
+    const observer = {
+      onStoppedRecording: sinon.spy()
+    };
 
-    before(function() {
-      setup();
+    function setup() {
+      setupFakeRecorder();
+
       adapter = new MobileAdapter();
       adapter.addObserver(observer, ['stopped-recording']);
 
       adapter.startRecording();
-    });
+    }
 
-    after(function() {
-      teardown()
-    });
+    function teardown() {
+      removeFakeRecorder()
+    }
 
     describe('when the recorder is recording', function() {
       before(function() {
+        setup()
         adapter.onRecordingStopped();
       })
+
+      after(teardown)
 
       it('notifies', function() {
         expect(observer.onStoppedRecording).to.have.been.called;
@@ -153,17 +154,21 @@ describe('MobileAdapter', function() {
       it('sets the correct state', function() {
         expect(adapter.state).to.eql(STOPPED);
       });
+    })
 
-      describe('when the recorder is not recording', function() {
-        before(function() {
-          observer.onStoppedRecording.reset()
-          adapter.onRecordingStopped();
-        })
-
-        it('notifies', function() {
-          expect(observer.onStoppedRecording).not.to.have.been.called;
-        });
+    describe('when the recorder is not recording', function() {
+      before(function() {
+        setup()
+        adapter.stopRecording()
+        observer.onStoppedRecording.reset()
+        adapter.onRecordingStopped();
       })
-    });
+
+      after(teardown)
+
+      it('notifies', function() {
+        expect(observer.onStoppedRecording).not.to.have.been.called;
+      });
+    })
   })
 });
