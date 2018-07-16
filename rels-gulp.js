@@ -31,6 +31,7 @@ module.exports = {
     browserSync: {
       dev: {
         port: 3000,
+        https: true,
         server: {
           baseDir: ['demo']
         }
