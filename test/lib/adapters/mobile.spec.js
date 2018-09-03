@@ -106,8 +106,6 @@ describe('MobileAdapter', function() {
     before(function() {
       setupFakeRecorder();
       adapter = new MobileAdapter();
-      adapter.addObserver(observer, ['stopped-recording']);
-
       adapter.startRecording();
 
       adapter.stopRecording();
@@ -115,17 +113,9 @@ describe('MobileAdapter', function() {
 
     after(removeFakeRecorder);
 
-    it('notifies', function() {
-      expect(observer.onStoppedRecording).to.have.been.called;
-    });
-
     it('calls stopRecord on recorder', function() {
       expect(fakeRecorder.prototype.stopRecord).to.have.been.called
     })
-
-    it('sets the correct state', function() {
-      expect(adapter.state).to.eql(STOPPED);
-    });
   });
 
   describe('onRecordingStopped', function() {
