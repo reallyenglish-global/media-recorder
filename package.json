@@ -26,11 +26,11 @@
     "gulp": "latest",
     "jshint": "^2.8.0",
     "last-release-git-tag": "latest",
-    "mocha": "*",
+    "mocha": "5.1.1",
     "rels-gulp": "git+ssh://git@github.com/reallyenglish/rels-gulp#v2.1.3",
     "semantic-release": "^4.3.5",
-    "sinon": "latest",
-    "sinon-chai": "*",
+    "sinon": "5.0.3",
+    "sinon-chai": "3.2.0",
     "validate-commit-msg": "^2.6.1"
   },
   "scripts": {
