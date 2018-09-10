@@ -158,6 +158,7 @@ describe('MobileAdapter', function() {
       before(function() {
         setup()
         adapter.stopRecording()
+        adapter.onRecordingStopped();
         observer.onStoppedRecording.reset()
         adapter.onRecordingStopped();
       })
