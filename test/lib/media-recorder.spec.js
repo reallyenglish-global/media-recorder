@@ -9,21 +9,20 @@ var _ = require('underscore'),
 describe('MediaRecorder', function() {
 
   describe('standard usage', function() {
-    var sandbox = sinon.sandbox.create();
     var api = ['startRecording', 'stopRecording', 'startPlaying', 'stopPlaying', 'reset'];
     var broadcasts = ['stopped:playing', 'started:recording', 'stopped:recording'];
     var recorder
     var adapter = { remove: function() {}};
 
     var observer = {
-      onStartedRecording: sandbox.spy(),
-      onStoppedPlaying: sandbox.spy(),
-      onStoppedRecording: sandbox.spy()
+      onStartedRecording: sinon.spy(),
+      onStoppedPlaying: sinon.spy(),
+      onStoppedRecording: sinon.spy()
     };
 
     before(function() {
       _.each(api, function(func) {
-        adapter[func] = sandbox.spy();
+        adapter[func] = sinon.spy();
       });
       recorder = new MediaRecorder({});
       recorder.adapter = adapter;
@@ -31,7 +30,7 @@ describe('MediaRecorder', function() {
     });
 
     after(function() {
-      sandbox.restore();
+      sinon.restore();
       recorder.remove();
     });
 
