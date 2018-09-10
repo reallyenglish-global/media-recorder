@@ -159,7 +159,7 @@ describe('MobileAdapter', function() {
         setup()
         adapter.stopRecording()
         adapter.onRecordingStopped();
-        observer.onStoppedRecording.reset()
+        sinon.reset()
         adapter.onRecordingStopped();
       })
 
