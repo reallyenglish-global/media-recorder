@@ -3,6 +3,9 @@
   "version": "1.0.1",
   "description": "Media Recorder",
   "main": "./lib/media-recorder.js",
+  "browserify": {
+    "transform": "workerify"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/reallyenglish/media-recorder"
@@ -11,10 +14,11 @@
   "dependencies": {
     "jquery": "*",
     "underscore": "*",
+    "browserify": "^11.1.0",
+    "workerify": "^0.3.0",
     "webrtc-adapter": "4.0.2"
   },
   "devDependencies": {
-    "browserify": "^11.1.0",
     "chai": "*",
     "chai-as-promised": "*",
     "colors": "*",
@@ -22,11 +26,11 @@
     "gulp": "latest",
     "jshint": "^2.8.0",
     "last-release-git-tag": "latest",
-    "mocha": "*",
+    "mocha": "5.1.1",
     "rels-gulp": "git+ssh://git@github.com/reallyenglish/rels-gulp#v2.1.3",
     "semantic-release": "^4.3.5",
-    "sinon": "latest",
-    "sinon-chai": "*",
+    "sinon": "5.0.3",
+    "sinon-chai": "3.2.0",
     "validate-commit-msg": "^2.6.1"
   },
   "scripts": {
