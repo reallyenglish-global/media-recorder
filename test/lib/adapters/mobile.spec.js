@@ -97,6 +97,27 @@ describe('MobileAdapter', function() {
     });
   });
 
+  describe('onRecordingStarted', function() {
+    var adapter
+    const observer = {
+      onStartedRecording: sinon.spy()
+    }
+
+    before(function() {
+      setupFakeRecorder();
+      adapter = new MobileAdapter();
+      adapter.addObserver(observer, ['started-recording']);
+
+      adapter.onRecordingStarted();
+    });
+
+    after(removeFakeRecorder);
+
+    it('notifies', function() {
+      expect(observer.onStartedRecording).to.have.been.called;
+    });
+  });
+
   describe('stopRecording', function() {
     var adapter
     const observer = {
