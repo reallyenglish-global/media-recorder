@@ -37,6 +37,10 @@
     "test": "gulp test",
     "semantic-release": "semantic-release pre && semantic-release post"
   },
+  "engines": {
+    "node": "^10",
+    "npm": "^6"
+  },
   "release": {
     "getLastRelease": "./node_modules/last-release-git-tag/index.js",
     "debug": false
