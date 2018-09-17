@@ -1,6 +1,7 @@
-var gulp = require('gulp');
+'use strict';
 
-require('rels-gulp');
+const gulp = require('gulp');
+const tasks = require('rels-gulp');
 
+tasks(gulp)
 gulp.task('default', ['test']);
-
