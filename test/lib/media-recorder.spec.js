@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('underscore'),
-    MediaRecorder = require('../../lib/media-recorder'),
+    Recorder = require('../../lib/media-recorder'),
     MobileAdapter = require('../../lib/adapters/mobile'),
     RecorderJsAdapter = require('../../lib/adapters/recorderjs'),
     SwfAdapter = require('../../lib/adapters/swf');
@@ -24,7 +24,7 @@ describe('MediaRecorder', function() {
       _.each(api, function(func) {
         adapter[func] = sinon.spy();
       });
-      recorder = new MediaRecorder({});
+      recorder = new Recorder({});
       recorder.adapter = adapter;
       recorder.addObserver(observer, broadcasts);
     });
@@ -55,7 +55,7 @@ describe('MediaRecorder', function() {
     var recorder;
 
     before(function() {
-      recorder = new MediaRecorder({});
+      recorder = new Recorder({});
     });
 
     context('mobile', function() {
