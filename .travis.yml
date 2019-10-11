@@ -1,18 +1,17 @@
-sudo: false
+sudo: true
 language: node_js
-cache:
-  directories:
-    - node_modules
+dist: trusty
 notifications:
   email: false
 node_js:
-  - '9'
+  - '11'
 before_install:
-  - npm i -g npm@^2.0.0
-before_script:
-  - npm prune
+  - npm i -g npm@^6
+script:
+  - run-p test lint format
+after_failure: cat npm-debug.log
 after_success:
-  - npm run --verbose semantic-release
+  - semantic-release
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/

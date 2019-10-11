@@ -1,21 +1,14 @@
-'use strict';
+'use strict'
 
 module.exports = {
   demo: {
     build: {
       source: 'media-recorder.js',
       bundle: {
-        entries: [
-          './lib/media-recorder.js'
-        ],
+        entries: ['./lib/media-recorder.js'],
         standalone: 'Recorder',
-        noParse: [
-          'jquery',
-          'underscore',
-          'recorderjs',
-          'webrtc-adapter'
-        ]
-      }
+        noParse: ['jquery', 'underscore', 'recorderjs', 'webrtc-adapter'],
+      },
     },
     dest: 'demo',
     vendor: {
@@ -24,8 +17,8 @@ module.exports = {
     assets: [
       {
         src: ['lib/swf/*'],
-        options: {base: 'lib/swf'},
-        dest: ''
+        options: { base: 'lib/swf' },
+        dest: '',
       },
     ],
     browserSync: {
@@ -33,43 +26,23 @@ module.exports = {
         port: 3000,
         https: true,
         server: {
-          baseDir: ['demo']
-        }
+          baseDir: ['demo'],
+        },
       },
-      files: [
-        "demo/*.js",
-        "demo/*.html",
-        "demo/*.css"
-      ]
+      files: ['demo/*.js', 'demo/*.html', 'demo/*.css'],
     },
-    watch: [{
-      files: ['lib/**/*.js'],
-      tasks: ['build:demo']
-    }],
+    watch: [
+      {
+        files: ['lib/**/*.js'],
+        tasks: ['build:demo'],
+      },
+    ],
   },
   test: {
-    runner: 'test/runner.html',
-    watch: [{
-        files: ['test/**/*.spec.js', 'test/support/**/*.js', 'lib/**/*.js'],
-        tasks: ['build:test']
-      },
-      {
-        files: ['./test/spec-manifest.js'],
-        tasks: ['test-runner']
-      }
-    ],
-    build: {
-      source: 'spec-manifest.js',
-      bundle: {
-        entries: [
-          './test/lib/**/*.spec.js'
-        ]
-      }
+    mocha: {
+      // require: ['./test/support/howlerFixSetup.js'],
+      file: './test/support/setup.js',
+      reporter: 'nyan',
     },
-    vendor: {
-      source: 'vendor.js',
-    },
-    dest: 'test'
-  }
+  },
 }
-

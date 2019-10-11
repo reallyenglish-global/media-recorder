@@ -14,44 +14,31 @@
   "dependencies": {
     "jquery": "*",
     "underscore": "*",
-    "browserify": "^11.1.0",
-    "workerify": "^0.3.0",
     "webrtc-adapter": "4.0.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
     "chai": "*",
     "chai-as-promised": "*",
-    "colors": "*",
-    "ghooks": "^1.3.2",
-    "gulp": "^3.9.1",
-    "jshint": "^2.8.0",
-    "last-release-git-tag": "latest",
-    "mocha": "5.1.1",
-    "rels-gulp": "git+ssh://git@github.com/reallyenglish/rels-gulp#v4.1.0",
-    "semantic-release": "^4.3.5",
-    "sinon": "5.0.3",
-    "sinon-chai": "3.2.0",
-    "validate-commit-msg": "^2.6.1"
+    "eslint": "^6.5.1",
+    "gulp": "^4",
+    "husky": "^3.0.0",
+    "prettier": "^1.18.2",
+    "rels-gulp": "git+ssh://git@github.com/reallyenglish/rels-gulp#v5.0.3",
+    "semantic-release": "^15.13.25",
+    "sinon": "^7.5.0",
+    "sinon-chai": "^3.3.0"
   },
   "scripts": {
+    "prepare": "cd node_modules/rels-gulp && npm run build && cd ../../",
     "test": "gulp test",
-    "semantic-release": "semantic-release pre && semantic-release post"
+    "format": "prettier -c lib/**/*{.js*,.scss}",
+    "lint": "eslint lib"
   },
   "engine-strict": true,
   "engines": {
-    "node": "^10",
+    "node": "^11",
     "npm": "^6"
-  },
-  "release": {
-    "getLastRelease": "./node_modules/last-release-git-tag/index.js",
-    "debug": false
-  },
-  "config": {
-    "validate-commit-msg": {
-      "helpMessage": "Valid types are: feat, fix, docs, style, refactor, perf, test, chore, revert \nNote that 'feat' and 'fix' will create new releases as will having BREAKING CHANGE: in the footer of your commit message."
-    },
-    "ghooks": {
-      "commit-msg": "validate-commit-msg"
-    }
   }
 }

@@ -1,0 +1,37 @@
+{
+  "plugins": ["import", "prettier", "babel"],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "root": true,
+  "extends": ["eslint:recommended", "prettier", "airbnb-base/legacy"],
+  "rules": {
+    "semi": 0,
+    "comma-dangle": 0,
+    "no-bitwise": 0,
+    "no-underscore-dangle": 0,
+    "no-plusplus": 0,
+    "no-unused-expressions": 0,
+    "global-require": 0,
+    "camelcase": 0,
+    "object-curly-newline": [
+      "error",
+      { "ImportDeclaration": { "multiline": true, "minProperties": 10 }, "ObjectPattern": "never" }
+    ],
+    "operator-linebreak": ["error", "after"],
+    "semi-style": ["error", "first"]
+  },
+  "overrides": [
+    {
+      "files": ["./**/*.test.js", "./**/*.spec.js"],
+      "env": { "mocha": true },
+      "plugins": ["mocha"],
+      "rules": {
+        "mocha/no-mocha-arrows": 0
+      },
+      "extends": ["plugin:mocha/recommended"]
+    }
+  ]
+}
