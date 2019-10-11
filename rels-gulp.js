@@ -1,7 +1,6 @@
-'use strict'
-
 module.exports = {
   demo: {
+    lint: ['lib/**/*.js'],
     build: {
       source: 'media-recorder.js',
       bundle: {
