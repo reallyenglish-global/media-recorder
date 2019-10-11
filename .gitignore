@@ -1,6 +1,6 @@
-demo/main.js
 demo/recorder.swf
 demo/media-recorder.js
+demo/vendor.js
 .DS_Store
 node_modules
 test/build.js
