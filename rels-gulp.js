@@ -39,7 +39,6 @@ module.exports = {
   },
   test: {
     mocha: {
-      // require: ['./test/support/howlerFixSetup.js'],
       file: './test/support/setup.js',
       reporter: 'nyan',
     },
