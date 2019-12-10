@@ -65,7 +65,8 @@
     "workerify": "^1.1.0"
   },
   "scripts": {
-    "prepare": "cd node_modules/rels-gulp && npm run build && cd ../../",
+    "build": "babel ./lib --out-dir dist",
+    "prepare": "cd node_modules/rels-gulp && npm run build && cd ../../ && npm run build",
     "test": "gulp test",
     "format": "prettier -c lib/**/*{.js*,.scss}",
     "lint": "eslint lib"

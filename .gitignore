@@ -8,3 +8,4 @@ test/vendor.js
 npm-debug.log
 test/spec-manifest.js
 package-lock.json
+dist
