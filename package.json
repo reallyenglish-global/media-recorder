@@ -39,6 +39,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "jquery": "*",
+    "regenerator-runtime": "^0.13.3",
     "underscore": "*",
     "webrtc-adapter": "4.0.2"
   },

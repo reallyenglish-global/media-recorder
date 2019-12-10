@@ -1,3 +1,5 @@
+import regeneratorRuntime from 'regenerator-runtime' // eslint-disable-line no-unused-vars
+
 import jsdom from 'jsdom-global'
 import sinon from 'sinon'
 import chai from 'chai'
