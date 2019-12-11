@@ -31,6 +31,10 @@
       "rules": {
         "mocha/no-mocha-arrows": 0
       },
+      "globals": {
+        "expect": true,
+        "sinon": true
+      },
       "extends": ["plugin:mocha/recommended"]
     }
   ]

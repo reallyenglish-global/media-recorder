@@ -2,7 +2,7 @@
   "name": "media-recorder",
   "version": "1.0.1",
   "description": "Media Recorder",
-  "main": "./dist/media-recorder.js",
+  "main": "./dist/index.js",
   "browserify": {
     "transform": [
       [

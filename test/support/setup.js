@@ -1,5 +1,4 @@
 import regeneratorRuntime from 'regenerator-runtime' // eslint-disable-line no-unused-vars
-
 import jsdom from 'jsdom-global'
 import sinon from 'sinon'
 import chai from 'chai'
@@ -8,11 +7,12 @@ import sinonChai from 'sinon-chai'
 jsdom('', {
   url: 'https://localhost',
   pretendToBeVisual: true,
+  runScripts: 'dangerously',
+  resources: 'usable',
 })
 
 chai.should()
 chai.use(sinonChai)
-
 if (typeof global !== 'undefined') {
   global.Audio = window.Audio
   global.requestAnimationFrame = window.requestAnimationFrame
