@@ -1,5 +1,10 @@
-import { MOBILE, WEB_AUDIO, SWF } from '../../lib/constants'
+import { handlerFor, MOBILE, WEB_AUDIO, SWF } from '../../lib/constants'
 import Observable from '../../lib/mixins/Observable'
+import { ERROR, RECORDING_STOPPED, RECORDING_STARTED } from '../../lib/adapters/mobile'
+
+const onRecordingStarted = handlerFor(RECORDING_STARTED)
+const onRecordingStopped = handlerFor(RECORDING_STOPPED)
+const onError = handlerFor(ERROR)
 
 export class MockMediaRecorder {
   constructor() {
@@ -7,18 +12,12 @@ export class MockMediaRecorder {
   }
 
   startRecord() {
+    this.notifyObservers(onRecordingStarted)
     return this
   }
 
   stopRecord() {
-    return this
-  }
-
-  play() {
-    return this
-  }
-
-  stop() {
+    this.notifyObservers(onRecordingStopped, 'data')
     return this
   }
 
@@ -28,6 +27,10 @@ export class MockMediaRecorder {
 
   reset() {
     return this
+  }
+
+  makeError() {
+    this.notifyObservers(onError, new Error('fake error'))
   }
 }
 
