@@ -1,1 +1,2 @@
-lib/adapters/swf/**/*.js
+lib/adapters/swf/better.swfobject.js
+lib/adapters/swf/swfobject.js
