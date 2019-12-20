@@ -38,10 +38,12 @@
   },
   "license": "UNLICENSED",
   "dependencies": {
+    "atob": "^2.1.2",
     "jquery": "*",
     "regenerator-runtime": "^0.13.3",
     "underscore": "*",
-    "webrtc-adapter": "4.0.2"
+    "webrtc-adapter": "4.0.2",
+    "crypto-js": "latest"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
