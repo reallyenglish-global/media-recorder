@@ -1,4 +1,4 @@
-# media-recorder [![Build Status](https://travis-ci.com/reallyenglish/media-recorder.svg?token=nQpkqttSTJftx5LczSUb&branch=master)](https://travis-ci.com/reallyenglish/media-recorder)
+# media-recorder [![Build Status](https://travis-ci.com/reallyenglish/media-recorder.svg?token=nQpkqttSTJftx5LczSUb&branch=master)](https://travis-ci.com/reallyenglish-global/media-recorder)
 
 1. web audio
 A plugin for recording/exporting the output of Web Audio API nodes
