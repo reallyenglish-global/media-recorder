@@ -1,15 +1,10 @@
 sudo: true
 language: node_js
-dist: trusty
+dist: xenial
 notifications:
   email: false
 node_js:
-  - '11'
-before_install:
-  - npm i -g npm@^6
-script:
-  - run-p test lint format
-after_failure: cat npm-debug.log
+  - '12'
 after_success:
   - semantic-release
 branches:
