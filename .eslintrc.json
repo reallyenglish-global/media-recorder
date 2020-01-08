@@ -6,9 +6,10 @@
   },
   "parser": "babel-eslint",
   "root": true,
-  "extends": ["eslint:recommended", "prettier", "airbnb-base/legacy"],
+  "extends": ["eslint:recommended", "plugin:prettier/recommended", "airbnb-base/legacy"],
   "rules": {
     "semi": 0,
+    "prettier/prettier": "error",
     "comma-dangle": 0,
     "no-bitwise": 0,
     "no-underscore-dangle": 0,

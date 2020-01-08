@@ -44,10 +44,10 @@
     "webrtc-adapter": "4.0.2"
   },
   "devDependencies": {
-    "@babel/cli": "latest",
-    "@babel/core": "^7.6.0",
-    "@babel/preset-env": "^7.4.2",
-    "@babel/register": "^7.6.2",
+    "@babel/cli": "~7.7.7",
+    "@babel/core": "~7.7.7",
+    "@babel/preset-env": "~7.7.7",
+    "@babel/register": "~7.7.7",
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
     "babelify": "^10.0.0",
@@ -59,7 +59,7 @@
     "husky": "^3.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
-    "rels-gulp": "git+ssh://git@github.com/reallyenglish-global/rels-gulp#v5.1.5",
+    "rels-gulp": "git+ssh://git@github.com/reallyenglish-global/rels-gulp#v5.2.1",
     "semantic-release": "^15.13.25",
     "sinon": "^7.5.0",
     "sinon-chai": "^3.3.0",
