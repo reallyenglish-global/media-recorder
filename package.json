@@ -50,7 +50,7 @@
     "build": "./node_modules/.bin/babel ./lib --out-dir dist",
     "postinstall": "npm run build",
     "test": "gulp test",
-    "format": "prettier -c lib/**/*{.js*,.scss}",
+    "format": "prettier -c \"lib/**/*{.js*,.scss}\"",
     "lint": "eslint lib"
   },
   "engine-strict": true,
