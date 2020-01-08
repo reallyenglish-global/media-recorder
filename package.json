@@ -44,6 +44,7 @@
     "webrtc-adapter": "4.0.2"
   },
   "devDependencies": {
+    "@babel/cli": "latest",
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.4.2",
     "@babel/register": "^7.6.2",
