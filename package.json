@@ -44,7 +44,7 @@
     "webrtc-adapter": "4.0.2"
   },
   "devDependencies": {
-    "rels-gulp": "git+ssh://git@github.com/reallyenglish-global/rels-gulp#v5.2.5"
+    "rels-gulp": "git+ssh://git@github.com/reallyenglish-global/rels-gulp#v5.2.6"
   },
   "scripts": {
     "build": "./node_modules/.bin/babel ./lib --out-dir dist",
