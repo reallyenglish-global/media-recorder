@@ -1,4 +1,5 @@
 const config = {
+  exclude: ['**/*/worker.js'],
   presets: [
     [
       '@babel/preset-env',
