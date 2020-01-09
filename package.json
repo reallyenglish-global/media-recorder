@@ -3,35 +3,6 @@
   "version": "1.0.1",
   "description": "Media Recorder",
   "main": "./dist/index.js",
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            [
-              "@babel/preset-env",
-              {
-                "debug": false,
-                "targets": {
-                  "browsers": [
-                    "Explorer 11",
-                    "last 1 Chrome versions",
-                    "last 1 FireFox versions",
-                    "last 1 Safari versions",
-                    "last 1 Edge versions",
-                    "ios 8"
-                  ]
-                },
-                "useBuiltIns": "usage",
-                "corejs": "3"
-              }
-            ]
-          ]
-        }
-      ]
-    ]
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/reallyenglish-global/media-recorder"

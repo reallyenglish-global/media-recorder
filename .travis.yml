@@ -1,10 +1,11 @@
-sudo: true
 language: node_js
 dist: xenial
 notifications:
   email: false
 node_js:
   - '12'
+script:
+  - run-p test lint format
 after_success:
   - semantic-release
 branches:
