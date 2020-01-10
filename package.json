@@ -2,7 +2,7 @@
   "name": "media-recorder",
   "version": "1.0.1",
   "description": "Media Recorder",
-  "main": "./dist/index.js",
+  "main": "./lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/reallyenglish-global/media-recorder"
@@ -18,11 +18,14 @@
     "rels-gulp": "git+ssh://git@github.com/reallyenglish-global/rels-gulp#v5.2.6"
   },
   "scripts": {
-    "build": "./node_modules/.bin/babel ./lib --out-dir dist",
-    "postinstall": "npm run build",
     "test": "gulp test",
     "format": "prettier -c \"lib/**/*{.js*,.scss}\"",
     "lint": "eslint lib"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
   },
   "engine-strict": true,
   "engines": {
