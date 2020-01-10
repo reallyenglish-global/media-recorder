@@ -10,12 +10,11 @@
   "license": "UNLICENSED",
   "dependencies": {
     "jquery": "^3.4.1",
-    "regenerator-runtime": "^0.13.3",
     "underscore": "^1.9.2",
     "webrtc-adapter": "4.0.2"
   },
   "devDependencies": {
-    "rels-gulp": "git+ssh://git@github.com/reallyenglish-global/rels-gulp#v5.2.6"
+    "rels-gulp": "git+ssh://git@github.com/reallyenglish-global/rels-gulp#v5.2.12"
   },
   "scripts": {
     "test": "gulp test",
