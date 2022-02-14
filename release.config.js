@@ -5,4 +5,5 @@ module.exports = {
     '@semantic-release/github',
   ],
   debug: false,
+  branch: 'production',
 }

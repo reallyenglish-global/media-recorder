@@ -8,5 +8,6 @@ export const findAdapter = (adapterName = '') => {
   const byName = (candidate) => candidate.name === adapterName
   const bySupport = (candidate) => candidate.isSupported()
   const query = adapterName ? byName : bySupport
+
   return adapters.find(query)
 }

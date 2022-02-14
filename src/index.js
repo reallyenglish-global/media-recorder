@@ -1,5 +1,4 @@
-import 'regenerator-runtime'
-import { findAdapter } from './adapters/'
+import { findAdapter } from './adapters'
 import Observable from './mixins/Observable'
 
 import {
@@ -11,9 +10,7 @@ import {
   STOP_RECORDING,
   REMOVE,
   RESET,
-  UNSUPPORTED,
   recorderWrapper,
-  handlerFor,
 } from './constants'
 
 const relay = [
@@ -35,7 +32,6 @@ export {
 } from './constants'
 
 const withAdapter = Symbol('withAdapter')
-const onUnsupported = handlerFor(UNSUPPORTED)
 
 /*
  * Initialize a recording object
@@ -44,24 +40,18 @@ const onUnsupported = handlerFor(UNSUPPORTED)
  * @param {String} [options.swfPath] Path to the fallback SWF file
  *
  */
+
 class Recorder {
   constructor({ adapterName = '' } = {}) {
     this.relay = relay
 
+    Observable.call(this)
+
     const Adapter = findAdapter(adapterName)
 
-    if (!Adapter) {
-      window.setTimeout(() => {
-        this.notifyObservers(onUnsupported)
-      })
-      return
-    }
-
-    const adapter = new Adapter().addObserver(this, relay)
+    const adapter = Adapter ? new Adapter().addObserver(this, relay) : undefined
 
     this[withAdapter] = recorderWrapper(adapter)
-
-    Observable.call(this)
   }
 
   [withAdapter](method) {
@@ -95,3 +85,7 @@ class Recorder {
 
 Observable.call(Recorder.prototype)
 export default Recorder
+
+if (process.env && process.env.NODE_ENV === 'development') {
+  window.Recorder = Recorder
+}

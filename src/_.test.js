@@ -1,4 +1,4 @@
-import lolex from 'lolex'
+require('.')
 import Recorder from '.'
 import { mockAdapterSupportFor } from '../test/support'
 import {
@@ -16,6 +16,7 @@ const onRecorderInitialized = handlerFor(RECORDER_INITIALIZED)
 const onStartedRecording = handlerFor(STARTED_RECORDING)
 const onStoppedRecording = handlerFor(STOPPED_RECORDING)
 const onUnsupported = handlerFor(UNSUPPORTED)
+
 describe('MediaRecorder', () => {
   describe('standard usage', () => {
     const broadcasts = [RECORDER_INITIALIZED, STARTED_RECORDING, STOPPED_RECORDING]
@@ -62,6 +63,7 @@ describe('MediaRecorder', () => {
         env.uninstall()
       })
     })
+
     context('specifying an adapter', () => {
       it('chooses the WEB_AUIDO adapter even though the mobile adapter is supported', () => {
         const env = mockAdapterSupportFor(MOBILE, WEB_AUDIO)
@@ -88,7 +90,7 @@ describe('MediaRecorder', () => {
 
     context('flash supported env', () => {
       it('loads the swf Recorder, which is current not supported', () => {
-        const clock = lolex.install()
+        const clock = sinon.useFakeTimers()
         const env = mockAdapterSupportFor(SWF)
         const mock = {
           [onUnsupported]: sinon.spy(),
@@ -101,17 +103,19 @@ describe('MediaRecorder', () => {
 
         env.uninstall()
         recorder.remove()
+        clock.restore()
+        sinon.restore()
       })
     })
 
     context('no supported adapter found', () => {
       it('broadcasts onUnsupported', () => {
-        const clock = lolex.install()
         const mock = {
           [onUnsupported]: sinon.spy(),
         }
-        new Recorder({ adapterName: 'foo' }).addObserver(mock, [UNSUPPORTED])
-        clock.tick(1)
+
+        const r = new Recorder({ adapterName: 'foo' }).addObserver(mock, [UNSUPPORTED])
+        r.startRecording()
 
         expect(mock[onUnsupported]).to.be.called
       })

@@ -28,7 +28,7 @@ export const STARTED_RECORDING = 'started-recording'
 
 /* from media-recorder */
 export const UNSUPPORTED = 'unsupported'
-
+export const onUnsupported = handlerFor(UNSUPPORTED)
 /* adapters */
 export const WEB_AUDIO = 'WebAudio'
 export const MOBILE = 'Mobile'
@@ -61,27 +61,31 @@ export const onRemove = handlerFor(REMOVE)
 
 export const API = [START_RECORDING, STOP_RECORDING, RESET, REMOVE]
 
-export const recorderWrapper = (receiver) => (method, ...rest) => {
-  if (method === 'name') {
-    return receiver.constructor.name
-  }
-
-  const target = receiver[method]
-  const type = typeof target
-
-  switch (method) {
-    case undefined:
+export const recorderWrapper = (receiver) =>
+  function withAdapter(method, ...rest) {
+    if (!receiver) {
+      this.notifyObservers(onUnsupported)
       return receiver
-    case REMOVE:
-      target && target.call(receiver)
-      receiver = undefined // eslint-disable-line no-param-reassign
-      return receiver
-    default:
-      switch (type) {
-        case 'function':
-          return receiver[method](...rest)
-        default:
-          return target
-      }
+    }
+    if (method === 'name') {
+      return receiver.constructor.name
+    }
+
+    const target = receiver[method]
+    const type = typeof target
+    switch (method) {
+      case undefined:
+        return receiver
+      case REMOVE:
+        target && target.call(receiver)
+        receiver = undefined // eslint-disable-line no-param-reassign
+        return receiver
+      default:
+        switch (type) {
+          case 'function':
+            return receiver[method](...rest)
+          default:
+            return target
+        }
+    }
   }
-}

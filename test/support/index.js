@@ -1,6 +1,6 @@
-import { handlerFor, MOBILE, WEB_AUDIO, SWF } from '../../lib/constants'
-import Observable from '../../lib/mixins/Observable'
-import { ERROR, RECORDING_STOPPED, RECORDING_STARTED } from '../../lib/adapters/mobile'
+import { handlerFor, MOBILE, WEB_AUDIO, SWF } from '../../src/constants'
+import Observable from '../../src/mixins/Observable'
+import { ERROR, RECORDING_STOPPED, RECORDING_STARTED } from '../../src/adapters/mobile'
 
 const onRecordingStarted = handlerFor(RECORDING_STARTED)
 const onRecordingStopped = handlerFor(RECORDING_STOPPED)

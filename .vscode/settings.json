@@ -1,0 +1,8 @@
+{
+  "prettier.configPath": "/Users/randy/re-global/media-recorder/node_modules/rels-scripts/config/.prettierrc.yml",
+  "prettier.ignorePath": "/Users/randy/re-global/media-recorder/node_modules/rels-scripts/config/.prettierignore",
+  "prettier.prettierPath": "/Users/randy/re-global/media-recorder/node_modules/prettier/index.js",
+  "eslint.options": {
+    "overrideConfigFile": "/Users/randy/re-global/media-recorder/node_modules/rels-scripts/config/.eslintrc.js"
+  }
+}
