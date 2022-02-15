@@ -29,7 +29,8 @@ class Flash {
 
   static isSupported() {
     try {
-      if (new window.ActiveXObject(SHOCKWAVE_FLASH_AX)) {
+      const flash = new window.ActiveXObject(SHOCKWAVE_FLASH_AX)
+      if (flash) {
         return true
       }
     } catch (e) {

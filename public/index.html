@@ -1,0 +1,80 @@
+<html lang="en">
+  <title>Media Recorder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <head>
+    <meta charset="utf-8" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+  </head>
+  <body>
+    <h1>Media Recorder Demo</h1>
+
+    <select id="adapter" title="adapter">
+      <option value="">Auto</option>
+      <option value="recorderjs">RecorderJS (Web Audio)</option>
+      <option value="swf">SWF (Flash Fallback)</option>
+    </select>
+
+    <div id="controls">
+      <button id="record">Record</button>
+    </div>
+    <audio id="playback" />
+    <script>
+      var recorder,
+        adapterSelector,
+        record,
+        isRecording = false
+      ;(function () {
+        var recorderObserver = {
+          onStoppedRecording: function (waveFile) {
+            const url = window.URL.createObjectURL(waveFile)
+            document.getElementById('playback').src = url
+            document.getElementById('playback').controls = true
+            isRecording = false
+
+            record.innerHTML = 'record'
+          },
+
+          onStartedRecording: function () {
+            isRecording = true
+            record.innerHTML = 'stop'
+          },
+        }
+
+        var loadRecorder = function () {
+          if (recorder) {
+            recorder.remove()
+          }
+
+          var adapter
+
+          if (adapterSelector.value != '') {
+            adapter = adapterSelector.value
+          }
+          recorder = new window.Recorder({
+            adapter: adapter,
+          })
+
+          recorder.addObserver(recorderObserver, ['started-recording', 'stopped-recording'])
+        }
+        record = document.querySelector('#record')
+        adapterSelector = document.querySelector('#adapter')
+
+        adapterSelector.addEventListener('change', () => {
+          loadRecorder()
+        })
+
+        record.addEventListener('click', () => {
+          isRecording ? recorder.stopRecording() : recorder.startRecording()
+        })
+
+        window.onload = () => {
+          loadRecorder()
+        }
+      })()
+    </script>
+  </body>
+</html>
