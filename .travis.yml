@@ -6,7 +6,7 @@ notifications:
 script:
   - npm exec -- run-p test lint format
 after_success:
-  - semantic-release
+  - npm exec -- semantic-release
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
