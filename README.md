@@ -1,30 +1,29 @@
 # media-recorder [![Build Status](https://travis-ci.com/reallyenglish/media-recorder.svg?token=nQpkqttSTJftx5LczSUb&branch=master)](https://travis-ci.com/reallyenglish-global/media-recorder)
 
-1. web audio
-A plugin for recording/exporting the output of Web Audio API nodes
-https://github.com/mattdiamond/Recorderjs.git
+1. web audio A plugin for recording/exporting the output of Web Audio API nodes
+   https://github.com/mattdiamond/Recorderjs.git
 
 2. audio record api
-https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder_API/Using_the_MediaRecorder_API
+   https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder_API/Using_the_MediaRecorder_API
 
-3. flash
-https://github.com/reallyenglish/flash-recorder
+3. flash https://github.com/reallyenglish/flash-recorder
 
-About Blog
-http://www.javascripture.com/Blob
+About Blog http://www.javascripture.com/Blob
 
-atob test on browser
-openssl base64 -in life.wav -out life.txt
-openssl base64 -d -in life.txt -out life.wav
+atob test on browser openssl base64 -in life.wav -out life.txt openssl base64 -d -in life.txt -out
+life.wav
 
-Base64 Encoding
-on IE11 and Safari the line break need to be removed.
+Base64 Encoding on IE11 and Safari the line break need to be removed.
 
-IE11 doesn't support playing wav file.
-on console.
-a = new Audio();
-a.src = 'http://www.wav-sounds.com/funny/life.wav';
->>MEDIA12899: AUDIO/VIDEO: Unknown MIME type.
+IE11 doesn't support playing wav file. on console. a = new Audio(); a.src =
+'http://www.wav-sounds.com/funny/life.wav';
 
-a.src = 'http://re.reallyenglish.com/template/common/system_check/test.mp3';
-a.play();
+> > MEDIA12899: AUDIO/VIDEO: Unknown MIME type.
+
+a.src = 'http://re.reallyenglish.com/template/common/system_check/test.mp3'; a.play();
+
+# Travis-ci needs
+
+GIT_SSH_COMMAND="ssh"
+
+@see https://github.com/npm/git/issues/31

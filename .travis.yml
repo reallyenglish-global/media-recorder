@@ -3,10 +3,10 @@ dist: xenial
 node_js: node
 notifications:
   email: false
-deploy:
-  provider: script
-  script: semantic-release
-  on: 
-    branch: 
-     - master
-     - production
+script:
+  - npm exec -- run-p test lint format
+after_success:
+  - semantic-release
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
