@@ -4,17 +4,17 @@ import {
   API,
   START_RECORDING,
   STOP_RECORDING,
-  RESET,
-  REMOVE,
   STARTED_RECORDING,
   STOPPED_RECORDING,
 } from '../../constants'
-import { mockAdapterSupportFor } from '../../../test/support'
+
+import { mockAdapter } from '../../../test_support'
 import Mobile from '.'
+
 let env
 describe('MobileAdapter', () => {
   before(() => {
-    env = mockAdapterSupportFor(MOBILE)
+    env = mockAdapter(MOBILE)
   })
   after(() => {
     env.uninstall()
@@ -30,7 +30,7 @@ describe('MobileAdapter', () => {
       it('returns false', () => {
         env.uninstall()
         expect(Mobile.isSupported()).to.be.false
-        env = mockAdapterSupportFor(MOBILE)
+        env = mockAdapter(MOBILE)
       })
     })
   })

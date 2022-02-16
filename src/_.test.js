@@ -1,6 +1,6 @@
 require('.')
 import Recorder from '.'
-import { mockAdapterSupportFor } from '../test/support'
+import { mockAdapter } from '../test_support'
 import {
   RECORDER_INITIALIZED,
   STARTED_RECORDING,
@@ -27,7 +27,7 @@ describe('MediaRecorder', () => {
     let env
     // eslint-disable-next-line mocha/no-hooks-for-single-case
     before(() => {
-      env = mockAdapterSupportFor(MOBILE)
+      env = mockAdapter(MOBILE)
 
       observer = {}
       broadcasts.forEach((message) => {
@@ -56,7 +56,7 @@ describe('MediaRecorder', () => {
   describe('loading suppored adapter', () => {
     context('when rels.mobile is defined on window', () => {
       it('chooses the mobile adapter', () => {
-        const env = mockAdapterSupportFor(MOBILE)
+        const env = mockAdapter(MOBILE)
         const recorder = new Recorder()
         expect(recorder.using()).to.eql(MOBILE)
         recorder.remove()
@@ -66,7 +66,7 @@ describe('MediaRecorder', () => {
 
     context('specifying an adapter', () => {
       it('chooses the WEB_AUIDO adapter even though the mobile adapter is supported', () => {
-        const env = mockAdapterSupportFor(MOBILE, WEB_AUDIO)
+        const env = mockAdapter(MOBILE, WEB_AUDIO)
         const recorder = new Recorder({ adapterName: WEB_AUDIO })
 
         expect(recorder.using()).to.eql(WEB_AUDIO)
@@ -78,7 +78,7 @@ describe('MediaRecorder', () => {
 
     context('web audio suppoted env', () => {
       it('chooses the recorderjs adapter', () => {
-        const env = mockAdapterSupportFor(WEB_AUDIO)
+        const env = mockAdapter(WEB_AUDIO)
         const recorder = new Recorder()
 
         expect(recorder.using()).to.eql(WEB_AUDIO)
@@ -91,7 +91,7 @@ describe('MediaRecorder', () => {
     context('flash supported env', () => {
       it('loads the swf Recorder, which is current not supported', () => {
         const clock = sinon.useFakeTimers()
-        const env = mockAdapterSupportFor(SWF)
+        const env = mockAdapter(SWF)
         const mock = {
           [onUnsupported]: sinon.spy(),
         }

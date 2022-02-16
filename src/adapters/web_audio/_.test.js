@@ -1,11 +1,11 @@
 /* eslint-disable */
 import WebAudio from '.'
-import { WEB_AUDIO, MOBILE, API } from '../../constants'
-import { mockAdapterSupportFor } from '../../../test/support'
+import { WEB_AUDIO, API } from '../../constants'
+import { mockAdapter } from '../../../test_support'
 describe('WebAudio', () => {
   context('client supports web audio', () => {
     it('is supported', () => {
-      const env = mockAdapterSupportFor(WEB_AUDIO)
+      const env = mockAdapter(WEB_AUDIO)
       expect(WebAudio.isSupported()).to.be.true
       env.uninstall()
     })
@@ -21,7 +21,7 @@ describe('WebAudio', () => {
   })
 
   it('supports the adapter interface', () => {
-    const env = mockAdapterSupportFor(WEB_AUDIO)
+    const env = mockAdapter(WEB_AUDIO)
     const adapter = new WebAudio()
 
     API.forEach((method) => expect(typeof adapter[method]).to.eql('function'))
