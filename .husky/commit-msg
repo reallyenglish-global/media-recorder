@@ -1,4 +1,0 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-npm exec -- commitlint --config /Users/randy/re-global/media-recorder/node_modules/rels-scripts/config/commitlint.config.js --edit 

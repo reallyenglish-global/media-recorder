@@ -21,7 +21,7 @@
     "format": "rels-scripts format",
     "lint": "rels-scripts lint",
     "prepare": "rels-scripts init",
-    "start": "HTTPS=true rels-scripts start"
+    "start": "rels-scripts start"
   },
   "browserslist": {
     "production": [
@@ -33,6 +33,25 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "browswerslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/github"
     ]
   }
 }
