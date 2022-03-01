@@ -13,9 +13,13 @@
     "rels-scripts": "git+ssh://git@github.com/reallyenglish-global/rels-scripts.git",
     "webrtc-adapter": "4.0.2"
   },
+  "bin": {
+    "media-recorder": "./bin/media-recorder.js"
+  },
   "files": [
     "public/worker.js",
-    "src"
+    "src",
+    "bin"
   ],
   "scripts": {
     "test": "rels-scripts test",
