@@ -19,7 +19,8 @@
   "files": [
     "public/worker.js",
     "src",
-    "bin"
+    "bin",
+    "scripts"
   ],
   "scripts": {
     "test": "rels-scripts test",
